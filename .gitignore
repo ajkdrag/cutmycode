@@ -8,3 +8,13 @@ wheels/
 
 # Virtual environments
 .venv
+
+env
+.env
+db.sqlite3
+/media/
+/static/
+
+# ADE
+.gemini/
+AGENTS.md

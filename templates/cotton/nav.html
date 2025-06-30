@@ -1,0 +1,24 @@
+<c-vars logo="{{ logo }}" />
+<nav class="nav">
+    <a href="{% url 'explore' %}" class="nav__logo">{{ logo }}</a>
+    <ul class="nav__list">
+        {% if user.is_authenticated %}
+            <li class="nav__item">
+                <a href="{% url 'snippets:dashboard' %}" class="nav__link">{{ user.username }}</a>
+            </li>
+            <li class="nav__item">
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="button button--tertiary">Logout</button>
+                </form>
+            </li>
+        {% else %}
+            <li class="nav__item">
+                <a href="{% url 'login' %}" class="nav__link">Login</a>
+            </li>
+            <li class="nav__item">
+                <a href="{% url 'signup' %}" class="nav__link">Signup</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>

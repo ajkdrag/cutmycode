@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ snippet.title }}{% endblock %}
+{% block content %}
+    <h1>{{ snippet.title }}</h1>
+    <p>{{ snippet.description }}</p>
+    <pre>{{ snippet.code }}</pre>
+    {% if snippet.user.pk == request.user.pk %}
+        <a href="{{ snippet.get_edit_url }}">Edit</a>
+        <a href="{{ snippet.get_delete_url }}">Delete</a>
+        <a href="#">Share</a>
+    {% endif %}
+{% endblock %}
