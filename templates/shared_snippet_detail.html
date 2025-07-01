@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}{{ snippet.title }}{% endblock %}
+{% block content %}
+    <h1>Shared: {{ snippet.title }}</h1>
+    <p>{{ snippet.description }}</p>
+    <pre>{{ snippet.code }}</pre>
+{% endblock %}

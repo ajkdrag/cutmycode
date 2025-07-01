@@ -1,8 +1,17 @@
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Snippet
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.http import JsonResponse
+
+from .models import SharedSnippet, Snippet
+
+#############
+# List views
+#############
 
 
 class ExploreView(ListView):
@@ -23,11 +32,15 @@ class DashboardView(LoginRequiredMixin, ListView):
         return Snippet.objects.filter(user=self.request.user)
 
 
+##############
+# CRUD stuff
+##############
+
+
 class SnippetCreateView(LoginRequiredMixin, CreateView):
     model = Snippet
     template_name = "snippet_create.html"
     fields = ("title", "description", "code", "language")
-    # success_url = reverse_lazy("snippets:dashboard")
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -58,3 +71,38 @@ class SnippetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         obj = self.get_object()
         return obj.user == self.request.user
+
+
+###############
+# Share stuff
+###############
+
+
+class CreateShareLinkView(LoginRequiredMixin, View):
+    """
+    Creates a temporary, shareable link for a snippet.
+    """
+
+    def post(self, request, *args, **kwargs):
+        snippet = get_object_or_404(Snippet, pk=kwargs["pk"])
+        if snippet.user != request.user:
+            raise PermissionDenied
+        shared_snippet = SharedSnippet.objects.create(snippet=snippet)
+        return redirect(shared_snippet.get_absolute_url())
+
+
+class SharedSnippetDetailView(DetailView):
+    model = SharedSnippet
+    template_name = "shared_snippet_detail.html"
+    context_object_name = "shared_snippet"
+    # name of the model field that contains the slug
+    slug_field = "token"
+    # name of the url parameter that contains the slug
+    slug_url_kwarg = "token"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Pass the actual 'snippet' object to the template, not the 'SharedSnippet'
+        context["snippet"] = self.object.snippet
+        return context

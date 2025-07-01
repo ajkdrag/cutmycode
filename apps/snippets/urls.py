@@ -5,6 +5,8 @@ from .views import (
     SnippetEditView,
     SnippetDeleteView,
     SnippetCreateView,
+    CreateShareLinkView,
+    SharedSnippetDetailView,
 )
 
 app_name = "snippets"
@@ -15,9 +17,10 @@ urlpatterns = [
     path("<int:pk>/", SnippetDetailView.as_view(), name="snippet_detail"),
     path("<int:pk>/edit/", SnippetEditView.as_view(), name="snippet_edit"),
     path("<int:pk>/delete/", SnippetDeleteView.as_view(), name="snippet_delete"),
-    # path(
-    #     "<str:username>/<int: id>/<slug:slug>/",
-    #     SnippetView.as_view(),
-    #     name="snippet",
-    # ),
+    path("<int:pk>/share/", CreateShareLinkView.as_view(), name="snippet_share"),
+    path(
+        "shared/<uuid:token>/",
+        SharedSnippetDetailView.as_view(),
+        name="shared_snippet_detail",
+    ),
 ]

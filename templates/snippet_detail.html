@@ -7,6 +7,9 @@
     {% if snippet.user.pk == request.user.pk %}
         <a href="{{ snippet.get_edit_url }}">Edit</a>
         <a href="{{ snippet.get_delete_url }}">Delete</a>
-        <a href="#">Share</a>
+        <form action="{{ snippet.get_share_url }}" method="post">
+            {% csrf_token %}
+            <button type="submit">Share</button>
+        </form>
     {% endif %}
 {% endblock %}
