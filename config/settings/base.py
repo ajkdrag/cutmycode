@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.accounts",
     "apps.snippets",
+    "apps.comments",
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,10 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "explore"
 LOGOUT_REDIRECT_URL = "explore"
+
+EMAIL_HOST = env("EMAIL_HOST", default="smtp.gmail.com")
+EMAIL_PORT = env("EMAIL_PORT", default=587)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+EMAIL_USE_TLS = env("EMAIL_USE_TLS", default=True)
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")

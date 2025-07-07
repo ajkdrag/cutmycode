@@ -1,13 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from django.http import JsonResponse
+from django.http import HttpResponseForbidden
 
 from .models import SharedSnippet, Snippet
+from apps.comments.forms import CommentForm
 
 #############
 # List views
@@ -52,6 +52,15 @@ class SnippetDetailView(DetailView):
     template_name = "snippet_detail.html"
     context_object_name = "snippet"
 
+    # show the comment form
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comment_form"] = CommentForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        pass
+
 
 class SnippetEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Snippet
@@ -86,7 +95,7 @@ class CreateShareLinkView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         snippet = get_object_or_404(Snippet, pk=kwargs["pk"])
         if snippet.user != request.user:
-            raise PermissionDenied
+            return HttpResponseForbidden()
         shared_snippet = SharedSnippet.objects.create(snippet=snippet)
         return redirect(shared_snippet.get_absolute_url())
 

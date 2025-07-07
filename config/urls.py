@@ -23,7 +23,8 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 urlpatterns = [
     path("", ExploreView.as_view(), name="explore"),
     path("admin/", admin.site.urls),
-    path("accounts/", include("apps.accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/", include("apps.accounts.urls")),
     path("snippets/", include("apps.snippets.urls")),
+    path("comments/", include("apps.comments.urls")),
 ] + debug_toolbar_urls()

@@ -12,4 +12,14 @@
             <button type="submit">Share</button>
         </form>
     {% endif %}
+    <form method="post"
+          action="{% url 'comments:post-comment' pk=snippet.pk %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    {% for comment in snippet.comments.all %}
+        <p>{{ comment.body }}</p>
+        <p>... by {{ comment.user }}</p>
+    {% endfor %}
 {% endblock %}

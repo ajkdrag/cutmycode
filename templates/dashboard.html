@@ -2,7 +2,6 @@
 {% block title %}Dashboard{% endblock %}
 {% block content %}
     <h1>Welcome, {{ user.username }}!</h1>
-    <!-- TODO: Add a form to create a new snippet -->
     <form action="{% url 'snippets:snippet_create' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
