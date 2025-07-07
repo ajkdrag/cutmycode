@@ -1,0 +1,69 @@
+@layer components {
+  .c-button {
+    --button-border: var(--border);
+    --button-bg: var(--color-bg-inverted);
+    --button-text-color: var(--color-text-inverted);
+    --button-shadow: var(--color-shadow);
+
+    padding: var(--space-2xs) var(--space-s);
+    border: var(--button-border);
+    font-family: var(--ff-body);
+    font-size: var(--fs-body);
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-body);
+    cursor: pointer;
+    transition: none;
+
+    box-shadow: 4px 4px 0 var(--button-shadow);
+
+    /* Default appearance */
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+  }
+
+  .c-button:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+
+  .c-button:focus-visible {
+    outline: var(--border-muted);
+    box-shadow: none;
+  }
+
+  .c-button:active {
+    outline: var(--border-muted);
+    box-shadow: none;
+  }
+
+  .c-button--secondary {
+    --button-bg: var(--color-bg-primary);
+    --button-text-color: var(--color-text-body);
+    --color-shadow: var(--color-shadow-secondary);
+  }
+
+  .c-button--secondary:hover {
+    transform: translate(2px, 2px);
+  }
+
+  /* Size variants */
+  .c-button--small {
+    padding: var(--space-3xs) var(--space-xs);
+    font-size: var(--fs-small);
+  }
+
+  .c-button--large {
+    padding: var(--space-xs) var(--space-m);
+    font-size: var(--fs-large);
+  }
+
+  /* Disabled state */
+  .c-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .c-button:disabled:hover {
+    transform: none;
+    box-shadow: 4px 4px 0 var(--button-shadow);
+  }
+}

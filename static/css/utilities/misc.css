@@ -1,0 +1,13 @@
+@layer utilities {
+  .u-border {
+    border: var(--border);
+  }
+
+  .u-border-muted {
+    border: var(--border-muted);
+  }
+
+  .u-outline {
+    outline: 2px solid var(--color-border);
+  }
+}

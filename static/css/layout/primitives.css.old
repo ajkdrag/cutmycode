@@ -1,0 +1,89 @@
+@layer composition {
+  /* Content wrapper for centering and max-width */
+  .wrapper {
+    --wrapper-max-width: var(--size-wrapper, 60rem);
+    max-width: var(--wrapper-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-m);
+  }
+
+  .wrapper[data-size="narrow"] {
+    --wrapper-max-width: var(--size-wrapper-narrow);
+  }
+
+  .wrapper[data-size="wide"] {
+    --wrapper-max-width: var(--size-wrapper-wide);
+  }
+
+  /* Vertical rhythm using the lobotomized owl */
+  .flow > :where(*:not(:first-child)) {
+    margin-block-start: var(--flow-space, 1em);
+  }
+
+  /* Pure vertical stack with flexbox */
+  .stack {
+    --stack-space: var(--space-m);
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-space);
+  }
+
+  .stack[data-gap="tight"] {
+    --stack-space: var(--space-xs);
+  }
+
+  .stack[data-gap="loose"] {
+    --stack-space: var(--space-xl);
+  }
+
+  .stack--center {
+    align-items: center;
+  }
+
+  /* Horizontal layout with flexbox */
+  .inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--inline-space, var(--space-m));
+  }
+
+  .inline--tight {
+    --inline-space: var(--space-xs);
+  }
+
+  .inline--loose {
+    --inline-space: var(--space-xl);
+  }
+
+  .inline--center {
+    justify-content: center;
+  }
+
+  /* Responsive auto-fit grid */
+  .grid-auto {
+    display: grid;
+    gap: var(--grid-gap, var(--space-m));
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(min(100%, var(--grid-min-item-size, 15rem)), 1fr)
+    );
+  }
+
+  /* Fixed column grids */
+  .grid {
+    display: grid;
+    gap: var(--grid-gap, var(--space-m));
+  }
+
+  .grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

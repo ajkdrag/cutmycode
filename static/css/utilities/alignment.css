@@ -1,0 +1,16 @@
+.u-center-block {
+  margin: 0 auto;
+}
+
+.u-center-items {
+  align-items: center;
+}
+
+.u-center-self {
+  margin-inline: auto;
+  justify-content: center;
+}
+
+.u-center-self {
+  align-self: center;
+}

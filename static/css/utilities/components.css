@@ -1,0 +1,8 @@
+.u-btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.u-btn-primary:hover {
+  background-color: var(--color-primary-dark);
+}

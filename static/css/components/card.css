@@ -1,0 +1,51 @@
+@layer components {
+  .c-card {
+    /* Neubrutalism aesthetics - thick borders & bold styling */
+    display: block;
+    position: relative;
+    background: var(--color-bg-secondary);
+    border: var(--color-border);
+    border-radius: var(--radius-brutal-rounded);
+    box-shadow: var(--shadow-brutal-offset);
+    overflow: hidden;
+    transition: transform 0.1s ease;
+  }
+
+  .c-card:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--color-border);
+  }
+
+  .c-card__title {
+    font-size: var(--font-size-h4);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-snug);
+    color: var(--color-text-heading);
+  }
+
+  .c-card__title a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* Accessible expanded link technique */
+  .c-card__title a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+  }
+
+  .c-card__meta {
+    font-size: 0.875rem;
+    color: var(--color-text-heading);
+    font-weight: 600;
+  }
+
+  /* Ensure interactive elements remain clickable */
+  .c-card__footer {
+    position: relative;
+    z-index: 1;
+  }
+}
+

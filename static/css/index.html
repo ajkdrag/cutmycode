@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="main.css" />
+        <title>CutMyCode Design System</title>
+    </head>
+    <body>
+        <!-- Header with composition -->
+        <header class="c-header | u-bg-secondary" data-position="sticky">
+            <div class="c-header__content | wrapper | u-pad-l">
+                <!-- Logo and Nav -->
+                <div class="c-header__row | row">
+                    <a href="#" class="c-logo">CutMyCode</a>
+                    <nav class="c-nav">
+                        <ul class="c-nav__list | row">
+                            <a class="c-nav__link" href="#layout">Layout</a>
+                            <a class="c-nav__link" href="#components">Components</a>
+                            <a class="c-nav__link" href="#typography">Typography</a>
+                        </ul>
+                    </nav>
+                    <button class="c-button c-button--primary">Get Started</button>
+                </div>
+            </div>
+        </header>
+        <!-- Hero section -->
+        <section class="c-hero | wrapper | u-pad-s">
+            <div class="c-hero__content | grid-auto">
+                <section class="c-hero__item | stack stack--tight | u-pad-l">
+                    <h2>CutMyCode Design System</h2>
+                    <p>A simplified, composable design system following modern CSS architecture principles</p>
+                </section>
+                <!-- dummy hero image (just bg with color for now) -->
+                <section class="c-hero__item | u-pad-l">
+                    <div class="u-bg-primary" style="min-height:250px"></div>
+                </section>
+            </div>
+        </section>
+        <!-- Main content -->
+        <main class="wrapper | u-mt-2xl u-padi-l">
+            <div class="stack stack--loose">
+                <!-- Layout Primitives -->
+                <section id="layout">
+                    <div class="u-mb-l">
+                        <h4>Layout Primitives</h4>
+                        <p>Composable layout building blocks that handle structure, not aesthetics.</p>
+                    </div>
+                    <section class="stack stack--loose | u-padi-m">
+                        <div>
+                            <h6>Wrapper - Content Centering</h6>
+                            <div class="wrapper | u-bg-secondary u-pad-s u-text-muted"
+                                 style="--wrapper-max-width: 20rem">
+                                <p>
+                                    Content automatically centered with max-width and horizontal padding. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <h6>Stack - Flexbox Vertical</h6>
+                            <div class="stack stack--fit | u-text-muted u-bg-secondary">
+                                <div class="u-border-muted u-pad-s">Stack Item 1</div>
+                                <div class="u-border-muted u-pad-s">Stack Item 2</div>
+                                <div class="u-border-muted u-pad-s">Stack Item 3</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h6>Grid Auto - Responsive Cards</h6>
+                            <div class="grid-auto | u-text-muted u-bg-secondary">
+                                <div class="u-border-muted u-pad-s">Auto Item 1</div>
+                                <div class="u-border-muted u-pad-s">Auto Item 1</div>
+                                <div class="u-border-muted u-pad-s">Auto Item 1</div>
+                                <div class="u-border-muted u-pad-s">Auto Item 1</div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <!-- Components -->
+                <section id="components">
+                    <div class="u-mb-m">
+                        <h4>Components</h4>
+                        <p>UI components that focus on aesthetics, composed with layout primitives.</p>
+                    </div>
+                    <section class="stack stack--loose | u-padi-m">
+                        <div>
+                            <h6>Buttons</h6>
+                            <div class="row | u-pad-s">
+                                <button class="c-button">Default</button>
+                                <button class="c-button c-button--secondary">Secondary</button>
+                                <button class="c-button c-button--secondary" disabled>Disabled</button>
+                                <button class="c-button" disabled>Disabled</button>
+                            </div>
+                            <div class="row | u-pad-s">
+                                <button class="c-button c-button--primary c-button--small">Small</button>
+                                <button class="c-button c-button--primary">Medium</button>
+                                <button class="c-button c-button--primary c-button--large">Large</button>
+                            </div>
+                        </div>
+                        <div>
+                            <h6>Cards with Composition</h6>
+                            <div class="grid-auto" style="--grid-min-item-size: 20rem;">
+                                <article class="c-card">
+                                    <div class="flow u-pad-m">
+                                        <div class="u-bg-primary" style="height: 200px;"></div>
+                                        <div class="flow" style="--flow-space: var(--space-xs);">
+                                            <h4 class="c-card__title">
+                                                <a href="#">Accessible Card Example</a>
+                                            </h4>
+                                            <p class="c-card__meta">March 15, 2024</p>
+                                            <p>This card uses composition: .c-card for aesthetics, .flow for spacing, and .grid-auto for layout.</p>
+                                        </div>
+                                        <div class="c-card__footer">
+                                            <button class="c-button c-button--primary">Read More</button>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="c-card">
+                                    <div class="flow u-pad-m">
+                                        <div class="flow" style="--flow-space: var(--space-xs);">
+                                            <h4 class="c-card__title">
+                                                <a href="#">Another Card</a>
+                                            </h4>
+                                            <p class="c-card__meta">March 10, 2024</p>
+                                            <p>Layout primitives make it easy to create consistent, flexible designs without complex CSS.</p>
+                                        </div>
+                                        <div class="c-card__footer">
+                                            <button class="c-button c-button--secondary">Learn More</button>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <!-- Typography -->
+                <section id="typography">
+                    <div class="u-mb-m">
+                        <h3>Typography</h3>
+                        <p class="u-mt-l">Fluid typography that scales beautifully across all device sizes.</p>
+                    </div>
+                    <section class="stack">
+                        <h6>Heading Scale</h6>
+                        <div class="flow">
+                            <h1>Heading 1 - Fluid Scale</h1>
+                            <h2>Heading 2 - Perfect Proportion</h2>
+                            <h3>Heading 3 - Consistent Rhythm</h3>
+                            <h4>Heading 4 - Modern Typography</h4>
+                            <h5>Heading 5 - Space Grotesk</h5>
+                            <h6>Heading 6 - Beautiful Headings</h6>
+                        </div>
+                        <h6>Body Text & Links</h6>
+                        <div class="flow">
+                            <p>
+                                Body text using DM Sans with optimal line length and spacing. This paragraph demonstrates the comfortable reading experience with proper typography tokens. <a href="#">Links are styled</a> with semantic color tokens and <strong>strong text</strong> uses the heading color for better contrast.
+                            </p>
+                            <p>
+                                <small>Small text for captions and secondary information.</small>
+                            </p>
+                        </div>
+                    </section>
+                </section>
+                <!-- Design System Benefits -->
+                <section id="benefits">
+                    <div class="u-mb-m">
+                        <h3>Design System Benefits</h3>
+                        <p class="u-mt-l">Key advantages of our modern CSS architecture approach.</p>
+                    </div>
+                    <section class="stack">
+                        <h6>Simplified Tokens</h6>
+                        <div class="flow">
+                            <h4>Simplified Tokens</h4>
+                            <p>Reduced from 50+ color variants to essential primitives and semantic tokens for better maintainability.</p>
+                        </div>
+                        <h6>Composable Architecture</h6>
+                        <div class="flow">
+                            <h4>Composable</h4>
+                            <p>Layout primitives separate structure from aesthetics, enabling flexible, reusable designs.</p>
+                        </div>
+                        <h6>Modern CSS Features</h6>
+                        <div class="flow">
+                            <h4>Modern CSS</h4>
+                            <p>Uses cascade layers, clamp(), and logical properties for future-proof, accessible styles.</p>
+                        </div>
+                        <h6>Performance Optimized</h6>
+                        <div class="flow">
+                            <h4>Lightweight</h4>
+                            <p>Fewer utility classes, cleaner architecture, and better performance through thoughtful design.</p>
+                        </div>
+                    </section>
+                </section>
+            </div>
+        </main>
+        <!-- Footer -->
+        <footer class="c-footer">
+            <div class="c-footer__content | wrapper | u-pad-m">
+                <p class="c-footer__copyright">
+                    Made with <3 with CutMyCode
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>

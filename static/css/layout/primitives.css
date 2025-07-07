@@ -1,0 +1,83 @@
+@layer composition {
+  /* Content wrapper for centering and max-width */
+  .wrapper {
+    --wrapper-max-width: var(--width-xl);
+    max-width: var(--wrapper-max-width);
+    margin-inline: auto;
+  }
+
+  .wrapper--narrow {
+    --wrapper-max-width: var(--width-s);
+  }
+
+  /* Place items horizontally */
+  .row {
+    --row-gap: var(--space-m);
+    --row-align-items: flex-start;
+    --row-justify-content: flex-start;
+    --row-flex-wrap: wrap;
+    display: flex;
+    flex-wrap: var(--row-flex-wrap);
+    gap: var(--row-gap);
+    align-items: var(--row-align-items);
+    justify-content: var(--row-justify-content);
+  }
+
+  /* Vertical rhythm using the lobotomized owl */
+  .flow > :where(*:not(:first-child)) {
+    margin-block-start: var(--flow-space, 1em);
+  }
+
+  /* Pure vertical stack with flexbox */
+  .stack {
+    --stack-gap: var(--space-m);
+    --stack-display: flex;
+    display: var(--stack-display);
+    flex-direction: column;
+    gap: var(--stack-gap);
+  }
+
+  .stack--fit {
+    align-items: flex-start;
+  }
+
+  .stack--tight {
+    --stack-gap: var(--space-xs);
+  }
+
+  .stack--loose {
+    --stack-gap: var(--space-xl);
+  }
+
+  .stack--snug {
+    --stack-gap: 0;
+  }
+
+  /* Responsive auto-fit grid */
+  .grid-auto {
+    display: grid;
+    gap: var(--grid-gap, var(--space-s));
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(min(100%, var(--grid-min-item-size, 15rem)), 1fr)
+    );
+  }
+
+  /* Fixed column grids */
+  .grid {
+    display: grid;
+    gap: var(--grid-gap, var(--space-m));
+  }
+
+  .grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
