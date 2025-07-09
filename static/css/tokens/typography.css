@@ -12,15 +12,14 @@
   --fw-semibold: 500;
   --fw-bold: 700;
 
-  /* Typography: Font Sizes */
-  --fs-small: 0.85rem;
-  --fs-body: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  --fs-h6: clamp(1.125rem, 1rem + 0.625vw, 1.5rem);
-  --fs-h5: clamp(1.25rem, 1.125rem + 0.625vw, 1.625rem);
-  --fs-h4: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem);
-  --fs-h3: clamp(1.875rem, 1.5rem + 1.875vw, 3rem);
-  --fs-h2: clamp(2.25rem, 1.875rem + 1.875vw, 3.375rem);
-  --fs-h1: clamp(3rem, 2.25rem + 3.75vw, 5.25rem);
+  --fs-xs: clamp(0.7813rem, 0.7747rem + 0.0326vw, 0.8rem);
+  --fs-small: clamp(0.9375rem, 0.9158rem + 0.1087vw, 1rem);
+  --fs-body: clamp(1.125rem, 1.0815rem + 0.2174vw, 1.25rem);
+  --fs-h5: clamp(1.35rem, 1.2761rem + 0.3696vw, 1.5625rem);
+  --fs-h4: clamp(1.62rem, 1.5041rem + 0.5793vw, 1.9531rem);
+  --fs-h3: clamp(1.944rem, 1.771rem + 0.8651vw, 2.4414rem);
+  --fs-h2: clamp(2.3328rem, 2.0827rem + 1.2504vw, 3.0518rem);
+  --fs-h1: clamp(2.7994rem, 2.4462rem + 1.7658vw, 3.8147rem);
 
   /* Typography: Line Heights */
   --lh-tight: 1.1;

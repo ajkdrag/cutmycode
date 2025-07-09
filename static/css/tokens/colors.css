@@ -17,6 +17,10 @@
   --color-text-muted: var(--neutral-500);
   --color-text-inverted: var(--white);
 
+  /* Semantic Tokens: Link */
+  --color-link: var(--neutral-900);
+  --color-link-hover: var(--neutral-700);
+
   /* Semantic Tokens: Background */
   --color-bg-primary: var(--white);
   --color-bg-secondary: var(--neutral-100);
@@ -31,5 +35,5 @@
   --color-shadow-secondary: var(--neutral-900);
 
   /* Semantic Tokens: Focus */
-  --color-focus: var(--primary-500);
+  --color-focus: var(--neutral-500);
 }

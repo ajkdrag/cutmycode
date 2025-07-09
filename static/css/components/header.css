@@ -1,11 +1,6 @@
 @layer components {
-  .c-header__content {
-    --wrapper-max-width: var(--width-xxl);
-  }
-
-  .c-header__row {
-    --row-align-items: center;
-    --row-justify-content: space-between;
+  .c-header {
+    background: var(--color-bg-secondary);
   }
 
   /* Sticky header variant */
@@ -19,5 +14,14 @@
   .c-header--minimal {
     background: transparent;
     border: none;
+  }
+
+  .c-header__content {
+    --wrapper-max-width: var(--width-xxl);
+  }
+
+  .c-header__row {
+    --row-align-items: center;
+    --row-justify-content: space-between;
   }
 }

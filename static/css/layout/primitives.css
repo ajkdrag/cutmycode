@@ -4,6 +4,7 @@
     --wrapper-max-width: var(--width-xl);
     max-width: var(--wrapper-max-width);
     margin-inline: auto;
+    padding-inline: var(--wrapper-padding, var(--space-s));
   }
 
   .wrapper--narrow {
@@ -11,7 +12,7 @@
   }
 
   /* Place items horizontally */
-  .row {
+  .cluster {
     --row-gap: var(--space-m);
     --row-align-items: flex-start;
     --row-justify-content: flex-start;
@@ -49,35 +50,27 @@
     --stack-gap: var(--space-xl);
   }
 
-  .stack--snug {
+  .stack--no-gap {
     --stack-gap: 0;
   }
 
-  /* Responsive auto-fit grid */
-  .grid-auto {
+  /* grids */
+  .grid {
+    --grid-columns: none;
+    --grid-min-item-size: 15rem;
     display: grid;
     gap: var(--grid-gap, var(--space-s));
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(min(100%, var(--grid-min-item-size, 15rem)), 1fr)
-    );
-  }
-
-  /* Fixed column grids */
-  .grid {
-    display: grid;
-    gap: var(--grid-gap, var(--space-m));
+    grid-template-columns: var(--grid-columns);
   }
 
   .grid--2 {
-    grid-template-columns: repeat(2, 1fr);
+    --grid-columns: repeat(2, 1fr);
   }
 
-  .grid--3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .grid--4 {
-    grid-template-columns: repeat(4, 1fr);
+  .grid--auto {
+    --grid-columns: repeat(
+      auto-fit,
+      minmax(min(100%, var(--grid-min-item-size)), 1fr)
+    );
   }
 }

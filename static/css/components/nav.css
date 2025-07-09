@@ -15,7 +15,6 @@
     color: var(--color-text-heading);
     font-weight: var(--fw-semibold);
     text-decoration: none;
-    transition: all 300ms ease;
   }
 
   .c-nav__link:hover {
@@ -23,12 +22,5 @@
     text-underline-offset: var(--underline-offset-l);
     text-decoration-color: var(--color-border);
     text-decoration-thickness: 4px;
-  }
-
-  /* Hide mobile toggle on desktop */
-  @media (min-width: 769px) {
-    .c-nav__toggle {
-      display: none;
-    }
   }
 }

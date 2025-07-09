@@ -1,15 +1,14 @@
 @layer components {
   .c-footer {
     background: var(--color-bg-secondary);
-    border-top: 4px solid var(--color-border);
     margin-top: var(--space-3xl);
   }
 
   .c-footer__copyright {
-    margin-inline: auto;
+    display: grid;
+    place-self: center;
     text-align: center;
     font-size: var(--fs-small);
     color: var(--color-text-muted);
   }
 }
-

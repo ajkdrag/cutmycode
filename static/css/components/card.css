@@ -1,25 +1,33 @@
 @layer components {
   .c-card {
-    /* Neubrutalism aesthetics - thick borders & bold styling */
-    display: block;
+    --card-color-bg: var(--color-bg-primary);
+    --card-color: var(--color-text);
+    --card-border: var(--color-border);
+    --card-shadow: var(--color-shadow-secondary);
+
     position: relative;
-    background: var(--color-bg-secondary);
-    border: var(--color-border);
-    border-radius: var(--radius-brutal-rounded);
-    box-shadow: var(--shadow-brutal-offset);
-    overflow: hidden;
-    transition: transform 0.1s ease;
+    background: var(--card-color-bg);
+    border: 2px solid var(--card-border);
+    box-shadow: 2px 2px 0 var(--card-shadow);
+    transition: none;
+  }
+
+  .c-card--secondary {
+    --card-color-bg: var(--color-bg-secondary);
+    --card-shadow: var(--color-shadow-secondary);
+    border: none;
+    box-shadow: 4px 4px 0 var(--card-shadow);
   }
 
   .c-card:hover {
     transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 var(--color-border);
+    box-shadow: none;
   }
 
   .c-card__title {
-    font-size: var(--font-size-h4);
+    font-size: var(--fs-h4);
     font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-snug);
+    line-height: var(--lh-snug);
     color: var(--color-text-heading);
   }
 
@@ -37,9 +45,9 @@
   }
 
   .c-card__meta {
-    font-size: 0.875rem;
-    color: var(--color-text-heading);
-    font-weight: 600;
+    font-size: var(--fs-xs);
+    color: var(--color-text-muted);
+    font-weight: var(--fw-semibold);
   }
 
   /* Ensure interactive elements remain clickable */
@@ -48,4 +56,3 @@
     z-index: 1;
   }
 }
-

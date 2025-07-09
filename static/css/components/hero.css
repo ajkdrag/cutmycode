@@ -3,8 +3,4 @@
     --wrapper-max-width: var(--width-xxl);
     background: var(--color-bg-inverted);
   }
-
-  .c-hero__item > * {
-    color: var(--color-text-inverted);
-  }
 }

@@ -18,6 +18,8 @@
   figure,
   blockquote,
   dl,
+  pre,
+  code,
   dd {
     margin: 0;
   }
@@ -48,6 +50,7 @@
     appearance: none;
     border: none;
     background: transparent;
+    cursor: pointer;
   }
 
   /* Remove list styling where semantic */
