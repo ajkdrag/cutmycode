@@ -1,25 +1,58 @@
 {% extends "base.html" %}
 {% block title %}{{ snippet.title }}{% endblock %}
 {% block content %}
-    <h1>{{ snippet.title }}</h1>
-    <p>{{ snippet.description }}</p>
-    <pre>{{ snippet.code }}</pre>
-    {% if snippet.user.pk == request.user.pk %}
-        <a href="{{ snippet.get_edit_url }}">Edit</a>
-        <a href="{{ snippet.get_delete_url }}">Delete</a>
-        <form action="{{ snippet.get_share_url }}" method="post">
-            {% csrf_token %}
-            <button type="submit">Share</button>
-        </form>
-    {% endif %}
-    <form method="post"
-          action="{% url 'comments:post-comment' pk=snippet.pk %}">
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-    {% for comment in snippet.comments.all %}
-        <p>{{ comment.body }}</p>
-        <p>... by {{ comment.user }}</p>
-    {% endfor %}
+    <div class="wrapper">
+        <div class="box | u-shadow">
+            <div class="stack">
+                <div class="stack | u-gap-2xs">
+                    <h4>{{ snippet.title }}</h4>
+                    <p class="u-text-small u-text-muted">Posted by {{ snippet.user.username }}, {{ snippet.created_at|timesince }} ago</p>
+                </div>
+                <p>{{ snippet.description }}</p>
+                <section class="stack | u-gap-2xs">
+                    <pre class="u-text-small | u-padding-xs u-bg-secondary"><code>{{ snippet.code }}</code></pre>
+                    <div class="cluster | u-gap-s u-justify-content-end">
+                        {% if snippet.user.pk == request.user.pk %}
+                            <a href="{{ snippet.get_edit_url }}"
+                               class="c-button c-button--small c-button--secondary">Edit</a>
+                        {% endif %}
+                        <form action="{{ snippet.get_share_url }}" method="post">
+                            {% csrf_token %}
+                            <button class="c-button c-button--small" type="submit">Share</button>
+                        </form>
+                    </div>
+                </section>
+                <form class="u-margin-start-l"
+                      method="post"
+                      action="{% url 'comments:post-comment' pk=snippet.pk %}">
+                    <div class="stack | u-gap-2xs">
+                        {% csrf_token %}
+                        <div class="c-field | stack | u-gap-2xs">
+                            {{ comment_form.body }}
+                            {% if comment_form.body.errors %}
+                                <div class="stack | u-gap-2xs">
+                                    {% for error in comment_form.body.errors %}<div class="c-error-list__item">{{ error }}</div>{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <button class="c-button c-button--tertiary c-button--small | u-align-self-end"
+                                type="submit">Comment</button>
+                    </div>
+                </form>
+                <div class="stack | u-gap-s">
+                    {% for comment in snippet.comments.all %}
+                        <div class="box | u-padding-2xs u-bg-secondary">
+                            <div class="stack | u-gap-2xs">
+                                <p class="u-text-small u-fw-semibold">
+                                    {{ comment.user }}
+                                    <span class="u-text-xs u-text-muted">&bull; {{ comment.created_at|timesince }} ago</span>
+                                </p>
+                                <p class="u-text-small">{{ comment.body }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

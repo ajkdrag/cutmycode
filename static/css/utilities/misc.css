@@ -3,6 +3,18 @@
     border: var(--border);
   }
 
+  .u-shadow {
+    box-shadow: 2px 2px 0 var(--color-shadow-secondary);
+  }
+
+  .u-border-thin {
+    border: var(--border-thin);
+  }
+
+  .u-border-bot {
+    border-bottom: 2px solid var(--color-border);
+  }
+
   .u-border-muted {
     border: var(--border-muted);
   }

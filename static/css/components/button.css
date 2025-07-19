@@ -1,20 +1,23 @@
 @layer components {
   .c-button {
-    --button-border: var(--border);
     --button-bg: var(--color-bg-inverted);
+    --button-bg-hover: var(--button-bg);
     --button-text-color: var(--color-text-inverted);
     --button-shadow: var(--color-shadow);
+    --button-border-thickness: 2px;
 
     padding: var(--space-2xs) var(--space-s);
-    border: var(--button-border);
+    border: var(--button-border-thickness) solid var(--color-border);
     font-family: var(--ff-body);
     font-size: var(--fs-body);
     font-weight: var(--fw-bold);
     line-height: var(--lh-body);
+    text-decoration: none;
     cursor: pointer;
     transition: none;
 
-    box-shadow: 4px 4px 0 var(--button-shadow);
+    box-shadow: var(--button-border-thickness) var(--button-border-thickness) 0
+      var(--button-shadow);
 
     /* Default appearance */
     background-color: var(--button-bg);
@@ -23,6 +26,7 @@
 
   .c-button:hover {
     transform: translate(2px, 2px);
+    background-color: var(--button-bg-hover);
     box-shadow: none;
   }
 
@@ -47,17 +51,21 @@
   }
 
   .c-button--secondary {
-    --button-bg: var(--color-bg-primary);
+    --button-bg: var(--color-bg-secondary);
     --button-text-color: var(--color-text-body);
     --color-shadow: var(--color-shadow-secondary);
   }
 
-  .c-button--secondary:hover {
-    transform: translate(2px, 2px);
+  .c-button--tertiary {
+    --button-bg: var(--color-bg-primary);
+    --button-bg-hover: var(--color-bg-secondary);
+    --button-text-color: var(--color-text-body);
+    --color-shadow: var(--color-shadow-secondary);
   }
 
   /* Size variants */
   .c-button--small {
+    --button-border-thickness: 2px;
     padding: var(--space-3xs) var(--space-xs);
     font-size: var(--fs-small);
   }

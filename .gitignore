@@ -17,6 +17,7 @@ db.sqlite3
 # ADE
 .gemini/
 AGENTS.md
+CLAUDE.md
 
 # MAC
 .DS_Store

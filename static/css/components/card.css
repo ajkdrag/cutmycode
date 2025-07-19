@@ -15,29 +15,31 @@
   .c-card--secondary {
     --card-color-bg: var(--color-bg-secondary);
     --card-shadow: var(--color-shadow-secondary);
-    border: none;
-    box-shadow: 4px 4px 0 var(--card-shadow);
+    border: var(--border-muted);
+    box-shadow: 2px 2px 0 var(--card-shadow);
   }
 
   .c-card:hover {
-    transform: translate(2px, 2px);
-    box-shadow: none;
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--card-shadow);
+  }
+
+  .c-card--secondary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--card-shadow);
   }
 
   .c-card__title {
-    font-size: var(--fs-h4);
-    font-weight: var(--font-weight-bold);
-    line-height: var(--lh-snug);
+    text-decoration: none;
+    font-family: var(--ff-heading);
+    font-size: var(--fs-h6);
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-tight);
     color: var(--color-text-heading);
   }
 
-  .c-card__title a {
-    text-decoration: none;
-    color: inherit;
-  }
-
   /* Accessible expanded link technique */
-  .c-card__title a::after {
+  .c-card__title::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -48,11 +50,5 @@
     font-size: var(--fs-xs);
     color: var(--color-text-muted);
     font-weight: var(--fw-semibold);
-  }
-
-  /* Ensure interactive elements remain clickable */
-  .c-card__footer {
-    position: relative;
-    z-index: 1;
   }
 }

@@ -1,35 +1,45 @@
 {% extends 'base.html' %}
 {% block title %}Dashboard{% endblock %}
 {% block content %}
-    <h1>Welcome, {{ user.username }}!</h1>
-    <form action="{% url 'snippets:snippet_create' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create</button>
-    </form>
-    <ul>
-        {% for snippet in snippets %}
-            <li>
-                <a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a>
-            </li>
-            {% if snippet.user.pk == request.user.pk %}
-                <a href="{{ snippet.get_edit_url }}">Edit</a>
-                <a href="{{ snippet.get_delete_url }}">Delete</a>
-                <a href="#">Share</a>
-            {% endif %}
-        {% endfor %}
-    </ul>
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
-            <span class="step-links__current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
+    <div class="wrapper | u-max-inline-sz-l">
+        <div class="sidebar | u-gap-xl">
+            <aside class="stack | u-gap-2xs">
+                <a href="#" class="c-button">My Snippets</a>
+                <a href="#" class="c-button c-button--tertiary">Collections</a>
+                <a href="{{ user.get_absolute_url }}"
+                   class="c-button c-button--tertiary">Settings</a>
+            </aside>
+            <div class="stack">
+                <div class="spaced-row">
+                    <h4>Recent Snippets</h4>
+                    <a href="{% url 'snippets:snippet_create' %}"
+                       class="c-button c-button--primary">Create Snippet</a>
+                </div>
+                {% if snippets %}
+                    <section class="grid">
+                        {% for snippet in snippets %}<c-snippet-card :snippet=snippet />{% endfor %}
+                    </section>
+                {% else %}
+                    <div class="box | u-padding-l">
+                        <p class="u-text-muted | u-text-center">You haven't created any snippets yet.</p>
+                    </div>
+                {% endif %}
+                {% if page_obj.paginator.num_pages > 1 %}
+                    <div class="c-pagination | u-center-self">
+                        <span class="step-links">
+                            {% if page_obj.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                            {% endif %}
+                            <span class="step-links__current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock %}

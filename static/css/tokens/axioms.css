@@ -1,0 +1,7 @@
+:root {
+  /* measures */
+  --measure: 60ch;
+  --measure-l: 90ch;
+  --measure-s: 40ch;
+  --measure-xs: 30ch;
+}

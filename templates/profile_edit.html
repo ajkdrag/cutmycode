@@ -1,10 +1,53 @@
 {% extends 'base.html' %}
 {% block title %}Edit Profile{% endblock %}
 {% block content %}
-    <h1>Edit Profile</h1>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="button button--primary" type="submit">Save</button>
-    </form>
+    <div class="wrapper">
+        <form class="c-form | box" method="post">
+            <div class="stack">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="stack | u-gap-2xs" role="list">
+                        {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
+                    </div>
+                {% endif %}
+                <div class="c-field | stack | u-gap-2xs">
+                    <label for="{{ form.username.id_for_label }}" class="c-label">{{ form.username.label }}</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="stack | u-gap-2xs">
+                            {% for error in form.username.errors %}<div class="c-error-list__item">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="c-field | stack | u-gap-2xs">
+                    <label for="{{ form.first_name.id_for_label }}" class="c-label">{{ form.first_name.label }}</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <div class="stack | u-gap-2xs">
+                            {% for error in form.first_name.errors %}<div class="c-error-list__item">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="c-field | stack | u-gap-2xs">
+                    <label for="{{ form.last_name.id_for_label }}" class="c-label">{{ form.last_name.label }}</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                        <div class="stack | u-gap-2xs">
+                            {% for error in form.last_name.errors %}<div class="c-error-list__item">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="c-field | stack | u-gap-2xs">
+                    <label for="{{ form.email.id_for_label }}" class="c-label">{{ form.email.label }}</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="stack | u-gap-2xs">
+                            {% for error in form.email.errors %}<div class="c-error-list__item">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <button class="c-button c-button--primary" type="submit">Save Changes</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}

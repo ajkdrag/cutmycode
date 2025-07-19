@@ -1,10 +1,47 @@
 {% extends 'base.html' %}
-{% block title %}Profile{% endblock %}
+{% block title %}{{ user.username }}'s Profile{% endblock %}
 {% block content %}
-    <h1>Profile</h1>
-    <p>First Name: {{ user.first_name }}</p>
-    <p>Last Name: {{ user.last_name }}</p>
-    <p>Username: {{ user.username }}</p>
-    <p>Email: {{ user.email }}</p>
-    <a href="{{ user.get_edit_url }}">Edit Profile</a>
+    <div class="wrapper">
+        <div class="box | u-shadow">
+            <div class="stack">
+                <div class="spaced-row">
+                    <h4>Profile</h4>
+                    <a href="{{ user.get_edit_url }}"
+                       class="c-button c-button--secondary c-button--small">Edit</a>
+                </div>
+                <div class="stack | u-gap-s">
+                    <div class="c-field | stack | u-gap-2xs">
+                        <label class="c-label">Username</label>
+                        <p class="u-text-muted">{{ user.username }}</p>
+                    </div>
+                    {% if user.first_name %}
+                        <div class="c-field | stack | u-gap-2xs">
+                            <label class="c-label">First Name</label>
+                            <p class="u-text-muted">{{ user.first_name }}</p>
+                        </div>
+                    {% endif %}
+                    {% if user.last_name %}
+                        <div class="c-field | stack | u-gap-2xs">
+                            <label class="c-label">Last Name</label>
+                            <p class="u-text-muted">{{ user.last_name }}</p>
+                        </div>
+                    {% endif %}
+                    {% if user.email %}
+                        <div class="c-field | stack | u-gap-2xs">
+                            <label class="c-label">Email</label>
+                            <p class="u-text-muted">{{ user.email }}</p>
+                        </div>
+                    {% endif %}
+                    <div class="c-field | stack | u-gap-2xs">
+                        <label class="c-label">Member Since</label>
+                        <p class="u-text-muted">{{ user.date_joined|date:"F j, Y" }}</p>
+                    </div>
+                </div>
+                <form class="u-align-self-end" method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="c-button c-button--tertiary c-button--small">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

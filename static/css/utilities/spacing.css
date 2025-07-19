@@ -1,79 +1,96 @@
 @layer utilities {
   /* Margin utilities */
-  .u-m-0 {
+  .u-margin-0 {
     margin: 0;
   }
-  .u-m-s {
+  .u-margin-s {
     margin: var(--space-s);
   }
-  .u-m-m {
+  .u-margin-m {
     margin: var(--space-m);
   }
-  .u-m-l {
+  .u-margin-l {
     margin: var(--space-l);
   }
 
-  .u-mt-0 {
-    margin-top: 0;
-  }
-  .u-mt-s {
-    margin-top: var(--space-s);
-  }
-  .u-mt-m {
-    margin-top: var(--space-m);
-  }
-  .u-mt-l {
-    margin-top: var(--space-l);
-  }
-  .u-mt-2xl {
-    margin-top: var(--space-2xl);
+  .u-margin-start-0 {
+    margin-block-start: 0;
   }
 
-  .u-mb-0 {
-    margin-bottom: 0;
+  .u-margin-start-s {
+    margin-block-start: var(--space-s);
   }
-  .u-mb-s {
-    margin-bottom: var(--space-s);
+
+  .u-margin-start-m {
+    margin-block-start: var(--space-m);
   }
-  .u-mb-m {
-    margin-bottom: var(--space-m);
+
+  .u-margin-start-l {
+    margin-block-start: var(--space-l);
   }
-  .u-mb-l {
-    margin-bottom: var(--space-l);
+
+  .u-margin-end-0 {
+    margin-block-end: 0;
+  }
+
+  .u-margin-end-s {
+    margin-block-end: var(--space-s);
+  }
+
+  .u-margin-end-m {
+    margin-block-end: var(--space-m);
+  }
+
+  .u-margin-end-l {
+    margin-block-end: var(--space-l);
   }
 
   /* Padding utilities */
-  .u-pad-0 {
+  .u-padding-0 {
     padding: 0;
   }
-  .u-pad-s {
-    padding: var(--space-s);
+  .u-padding-2xs {
+    padding: var(--space-2xs);
   }
-  .u-pad-m {
+
+  .u-padding-xs {
+    padding: var(--space-xs);
+  }
+  .u-padding-m {
     padding: var(--space-m);
   }
-  .u-pad-l {
+  .u-padding-l {
     padding: var(--space-l);
   }
 
-  .u-padi-0 {
-    padding-inline: 0;
+  .u-padding-start-0 {
+    padding-inline-start: 0;
   }
-  .u-padi-s {
+
+  .u-padding-inline-s {
     padding-inline: var(--space-s);
   }
-  .u-padi-m {
+  .u-padding-inline-m {
     padding-inline: var(--space-m);
   }
-  .u-padi-l {
+  .u-padding-inline-l {
     padding-inline: var(--space-l);
   }
 
-  /* Width utilities */
-  .u-width-full {
-    width: 100%;
+  /* Gap utilities */
+  .u-gap-0 {
+    gap: 0;
   }
-  .u-width-fit {
-    width: fit-content;
+
+  .u-gap-s {
+    gap: var(--space-s);
+  }
+
+  .u-gap-2xs {
+    gap: var(--space-2xs);
+  }
+
+  .u-gap-xl {
+    gap: var(--space-xl);
   }
 }

@@ -15,6 +15,10 @@
     font-size: var(--fs-small);
   }
 
+  .u-text-xs {
+    font-size: var(--fs-xs);
+  }
+
   /* Font weights */
   .u-fw-regular {
     font-weight: var(--fw-regular);

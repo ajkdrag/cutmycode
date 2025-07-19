@@ -1,16 +1,20 @@
-.u-center-block {
-  margin: 0 auto;
-}
-
-.u-center-items {
-  align-items: center;
-}
-
 .u-center-self {
   margin-inline: auto;
   justify-content: center;
 }
 
-.u-center-self {
-  align-self: center;
+.u-align-items-center {
+  align-items: center;
+}
+
+.u-justify-content-end {
+  justify-content: flex-end;
+}
+
+.u-align-self-end {
+  align-self: flex-end;
+}
+
+.u-pos-relative {
+  position: relative;
 }

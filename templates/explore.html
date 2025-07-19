@@ -1,25 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}Explore{% endblock %}
 {% block content %}
-    <h1>Explore</h1>
-    {% for snippet in snippets %}
-        <h2>
-            <a href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a>
-        </h2>
-        <pre>{{ snippet.code }}</pre>
-        <p>... by {{ snippet.user }}</p>
-    {% endfor %}
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="{% querystring page=1 %}">&laquo; first</a>
-                <a href="{% querystring page=page_obj.previous_page_number %}">previous</a>
-            {% endif %}
-            <span class="step-links__current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
-            {% if page_obj.has_next %}
-                <a href="{% querystring page=page_obj.next_page_number %}">&raquo; next</a>
-                <a href="{% querystring page=page_obj.paginator.num_pages %}">last</a>
-            {% endif %}
-        </span>
+    <div class="wrapper | u-max-inline-sz-l">
+        <section class="grid">
+            {% for snippet in snippets %}<c-snippet-card :snippet=snippet />{% endfor %}
+        </section>
+        <div class="c-pagination | u-center-self">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% querystring page=1 %}">&laquo; first</a>
+                    <a href="{% querystring page=page_obj.previous_page_number %}">previous</a>
+                {% endif %}
+                <span class="step-links__current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                {% if page_obj.has_next %}
+                    <a href="{% querystring page=page_obj.next_page_number %}">&raquo; next</a>
+                    <a href="{% querystring page=page_obj.paginator.num_pages %}">last</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
 {% endblock %}

@@ -8,19 +8,12 @@
   }
 
   .c-nav__list {
-    --row-gap: var(--space-2xl);
+    font-family: var(--ff-heading);
+    font-weight: var(--fw-semibold);
   }
 
   .c-nav__link {
     color: var(--color-text-heading);
-    font-weight: var(--fw-semibold);
     text-decoration: none;
-  }
-
-  .c-nav__link:hover {
-    text-decoration: underline;
-    text-underline-offset: var(--underline-offset-l);
-    text-decoration-color: var(--color-border);
-    text-decoration-thickness: 4px;
   }
 }

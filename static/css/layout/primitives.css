@@ -1,76 +1,68 @@
 @layer composition {
   /* Content wrapper for centering and max-width */
   .wrapper {
-    --wrapper-max-width: var(--width-xl);
-    max-width: var(--wrapper-max-width);
+    box-sizing: content-box;
+    max-inline-size: min(100%, var(--measure));
     margin-inline: auto;
-    padding-inline: var(--wrapper-padding, var(--space-s));
+    padding-inline: var(--space-m);
   }
 
-  .wrapper--narrow {
-    --wrapper-max-width: var(--width-s);
+  .box {
+    padding: var(--space-m);
+    border: 2px solid var(--color-border);
   }
 
-  /* Place items horizontally */
   .cluster {
-    --row-gap: var(--space-m);
-    --row-align-items: flex-start;
-    --row-justify-content: flex-start;
-    --row-flex-wrap: wrap;
     display: flex;
-    flex-wrap: var(--row-flex-wrap);
-    gap: var(--row-gap);
-    align-items: var(--row-align-items);
-    justify-content: var(--row-justify-content);
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: flex-start;
+    gap: var(--space-m);
   }
 
-  /* Vertical rhythm using the lobotomized owl */
-  .flow > :where(*:not(:first-child)) {
-    margin-block-start: var(--flow-space, 1em);
+  .spaced-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-m);
   }
 
   /* Pure vertical stack with flexbox */
   .stack {
-    --stack-gap: var(--space-m);
-    --stack-display: flex;
-    display: var(--stack-display);
+    display: flex;
     flex-direction: column;
-    gap: var(--stack-gap);
-  }
-
-  .stack--fit {
-    align-items: flex-start;
-  }
-
-  .stack--tight {
-    --stack-gap: var(--space-xs);
-  }
-
-  .stack--loose {
-    --stack-gap: var(--space-xl);
-  }
-
-  .stack--no-gap {
-    --stack-gap: 0;
+    justify-content: flex-start;
+    gap: var(--space-m);
   }
 
   /* grids */
   .grid {
-    --grid-columns: none;
-    --grid-min-item-size: 15rem;
+    --grid-min-item-size: var(--measure-xs);
+    --grid-columns: repeat(
+      auto-fit,
+      minmax(min(100%, var(--grid-min-item-size)), 1fr)
+    );
     display: grid;
-    gap: var(--grid-gap, var(--space-s));
+    gap: var(--grid-gap, var(--space-m));
     grid-template-columns: var(--grid-columns);
+  }
+
+  .grid--fill {
+    --grid-columns: repeat(
+      auto-fill,
+      minmax(min(100%, var(--grid-min-item-size)), 1fr)
+    );
   }
 
   .grid--2 {
     --grid-columns: repeat(2, 1fr);
   }
 
-  .grid--auto {
-    --grid-columns: repeat(
-      auto-fit,
-      minmax(min(100%, var(--grid-min-item-size)), 1fr)
-    );
+  .sidebar {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: var(--space-m);
   }
 }

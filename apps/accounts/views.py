@@ -1,7 +1,13 @@
 from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView, TemplateView, UpdateView
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomUserLoginForm
 from .models import CustomUser
+
+
+class CustomLoginView(LoginView):
+    form_class = CustomUserLoginForm
+    template_name = "registration/login.html"
 
 
 class SignUpView(CreateView):

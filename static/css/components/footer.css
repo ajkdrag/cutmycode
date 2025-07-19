@@ -1,7 +1,7 @@
 @layer components {
   .c-footer {
     background: var(--color-bg-secondary);
-    margin-top: var(--space-3xl);
+    margin-top: var(--space-xl);
   }
 
   .c-footer__copyright {

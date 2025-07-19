@@ -17,7 +17,7 @@ from apps.comments.forms import CommentForm
 class ExploreView(ListView):
     model = Snippet
     template_name = "explore.html"
-    paginate_by = 2
+    paginate_by = 8
     context_object_name = "snippets"
 
 

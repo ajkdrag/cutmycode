@@ -1,11 +1,46 @@
-{% extends 'base.html' %}
-{% block title %}Sign Up{% endblock %}
+{% extends "base.html" %}
+{% block title %}
+    Sign Up
+{% endblock title %}
 {% block content %}
-    <div class="container">
-        <form class="signup-form" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="button button--primary" type="submit">Sign Up</button>
+    <div class="wrapper | u-max-inline-sz-s">
+        <form class="c-form | box" method="post">
+            <div class="stack">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="stack | u-gap-2xs" role="list">
+                        {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
+                    </div>
+                {% endif %}
+                <div class="c-field | stack | u-gap-2xs">
+                    <label for="{{ form.username.id_for_label }}" class="c-label">{{ form.username.label }}</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="stack | u-gap-2xs">
+                            {% for error in form.username.errors %}<div class="c-error-list__item">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="c-field | stack | u-gap-2xs">
+                    <label for="{{ form.password1.id_for_label }}" class="c-label">{{ form.password1.label }}</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <div class="stack | u-gap-2xs">
+                            {% for error in form.password1.errors %}<div class="c-error-list__item">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="c-field | stack | u-gap-2xs">
+                    <label for="{{ form.password2.id_for_label }}" class="c-label">{{ form.password2.label }}</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <div class="stack | u-gap-2xs">
+                            {% for error in form.password2.errors %}<div class="c-error-list__item">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <button class="c-button c-button--primary" type="submit">Sign Up</button>
+            </div>
         </form>
     </div>
-{% endblock %}
+{% endblock content %}

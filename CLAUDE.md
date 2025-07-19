@@ -128,8 +128,6 @@ Follow the existing pattern in `apps/snippets/views.py`:
 
 ## UI design system
 
-Refer to `static/css/` for internal design system.
-
 ### Architecture Philosophy
 
 - **ITCSS (Inverted Triangle CSS)** for structural organization
@@ -140,7 +138,6 @@ Refer to `static/css/` for internal design system.
 - **Component-oriented**: Self-contained, reusable components
 - **Semantic tokens**: Purpose-driven naming (not value-based)
 - **Progressive enhancement**: Works with basic styles, enhanced by specifics
-- **Accessibility-first**: WCAG compliant, keyboard accessible
 - **Modern units**: Prefer rem/em over px, use clamp() for fluid scaling
 
 ### CSS Architecture Layers (ITCSS-based)
@@ -161,7 +158,7 @@ Refer to `static/css/` for internal design system.
 - **Elements**: `.c-component__element` (e.g., `.c-card__title`)
 - **Modifiers**: `.c-component--modifier` (e.g., `.c-button--primary`)
 - **Utilities**: `.u-utility` (e.g., `.u-text-center`)
-- **Composition**: No prefix (e.g., `.wrapper`, `.flow`, `.grid-auto`)
+- **Composition**: No prefix (e.g., `.wrapper`, `.flow`, `.grid`, `cluster`)
 
 ### Responsive Design Approach
 
@@ -174,31 +171,32 @@ Refer to `static/css/` for internal design system.
 
 - Semantic HTML foundation for all components
 - Color contrast compliance (4.5:1 minimum)
-- Form labels properly associated with inputs
 
 ## CSS Design Patterns
 
 ### CUBE CSS Conventions
 
 - **Class Composition**: Use pipe (|) separator to show class composition
+
   - Example: `c-header | wrapper | u-pad-l` showing:
     - Component class (c-header)
     - Layout primitive (wrapper)
     - Utility classes (u-pad-l)
 
-- **OOP-like Inheritance**: Components inherit from layout primitives
-  - Components can override CSS custom properties
-  - Example:
-    - `.wrapper` defines `--wrapper-max-width`
-    - `c-header` can override with `--wrapper-max-width: var(--width-xxl)`
-    - Creates clean inheritance pattern
+- **Separation of concerns**: Each component is built on a primitive and carries styles
+
+  - e.g. `c-tags | cluster | u-pad-m` indicates that the component tags is a cluster that's padded and carries some styles that will be defined in the c-tags.
+  - the components themselves shouldn't house any layout/spacing (pad/margin etc) related styles as these responsibilities are for primitives and utilities.
+  - If we some element becoming too long in the html: `c-comp__elem | wrapper | u-pad-m u-bg-secondary u-border-top u-text-mute` in this case, it's wise to incorporate the styles that the utilities perform within the c-comp\_\_elem style, such that we only need to do `c-comp_elem | wrapper | u-pad-m`
 
 - **Composition over Specificity**:
+
   - Layout handled by primitives (`.wrapper`, `.stack`, `.grid`)
   - Aesthetics handled by components (`.c-header`, `.c-button`)
-  - One-off adjustments use utilities (`.u-pad-l`, `.u-bg-secondary`)
+  - One-off adjustments use utilities (`.u-pad-l`, `.u-border-bot`)
 
 - **Refactoring Pattern**:
+
   - When common utility patterns emerge, refactor into component
   - Reduces repetitive utility usage in HTML
 
@@ -210,6 +208,7 @@ Refer to `static/css/` for internal design system.
 
 - Scales well (clear separation of concerns)
 - Maintainable (predictable patterns)
-- Composable (mix and match primitives)
-- Flexible (custom properties for contextual overrides)
+- Composable (styles + primitives)
+- Flexible (custom properties for overrides)
 - Follows modern CSS best practices
+
