@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Dashboard{% endblock %}
 {% block content %}
-    <div class="wrapper | u-max-inline-sz-l">
+    <div x-data="{ showSnippetPreview: false, activeSnippet: { title: '', code: '' } }"
+         class="wrapper | u-max-inline-sz-l">
         <div class="sidebar | u-gap-xl">
             <aside class="stack | u-gap-2xs">
                 <a href="#" class="c-button">My Snippets</a>
@@ -13,7 +14,7 @@
                 <div class="spaced-row">
                     <h4>Recent Snippets</h4>
                     <a href="{% url 'snippets:snippet_create' %}"
-                       class="c-button c-button--primary">Create Snippet</a>
+                       class="c-button c-button--primary c-button--large">Create Snippet</a>
                 </div>
                 {% if snippets %}
                     <section class="grid">
@@ -24,22 +25,9 @@
                         <p class="u-text-muted | u-text-center">You haven't created any snippets yet.</p>
                     </div>
                 {% endif %}
-                {% if page_obj.paginator.num_pages > 1 %}
-                    <div class="c-pagination | u-center-self">
-                        <span class="step-links">
-                            {% if page_obj.has_previous %}
-                                <a href="?page=1">&laquo; first</a>
-                                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                            {% endif %}
-                            <span class="step-links__current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
-                            {% if page_obj.has_next %}
-                                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                            {% endif %}
-                        </span>
-                    </div>
-                {% endif %}
+                <c-pagination :page_obj="page_obj" />
             </div>
         </div>
+        <c-snippet-preview-modal />
     </div>
 {% endblock %}

@@ -6,10 +6,10 @@
     --button-shadow: var(--color-shadow);
     --button-border-thickness: 2px;
 
-    padding: var(--space-2xs) var(--space-s);
+    padding: var(--space-3xs) var(--space-xs);
     border: var(--button-border-thickness) solid var(--color-border);
     font-family: var(--ff-body);
-    font-size: var(--fs-body);
+    font-size: var(--fs-small);
     font-weight: var(--fw-bold);
     line-height: var(--lh-body);
     text-decoration: none;
@@ -43,11 +43,11 @@
   /* Disabled state */
   .c-button:disabled {
     opacity: 0.5;
+    box-shadow: none;
     cursor: not-allowed;
   }
   .c-button:disabled:hover {
     transform: none;
-    box-shadow: 4px 4px 0 var(--button-shadow);
   }
 
   .c-button--secondary {
@@ -65,13 +65,12 @@
 
   /* Size variants */
   .c-button--small {
-    --button-border-thickness: 2px;
-    padding: var(--space-3xs) var(--space-xs);
+    padding: var(--space-4xs) var(--space-2xs);
     font-size: var(--fs-small);
   }
 
   .c-button--large {
-    padding: var(--space-xs) var(--space-m);
-    font-size: var(--fs-large);
+    padding: var(--space-2xs) var(--space-s);
+    font-size: var(--fs-body);
   }
 }

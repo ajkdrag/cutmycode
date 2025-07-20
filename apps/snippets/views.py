@@ -7,6 +7,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.http import HttpResponseForbidden
 
 from .models import SharedSnippet, Snippet
+from .forms import SnippetCreateForm
 from apps.comments.forms import CommentForm
 
 #############
@@ -39,8 +40,8 @@ class DashboardView(LoginRequiredMixin, ListView):
 
 class SnippetCreateView(LoginRequiredMixin, CreateView):
     model = Snippet
+    form_class = SnippetCreateForm
     template_name = "snippet_create.html"
-    fields = ("title", "description", "code", "language")
 
     def form_valid(self, form):
         form.instance.user = self.request.user

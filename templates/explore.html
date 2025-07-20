@@ -1,22 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}Explore{% endblock %}
 {% block content %}
-    <div class="wrapper | u-max-inline-sz-l">
-        <section class="grid">
-            {% for snippet in snippets %}<c-snippet-card :snippet=snippet />{% endfor %}
-        </section>
-        <div class="c-pagination | u-center-self">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                    <a href="{% querystring page=1 %}">&laquo; first</a>
-                    <a href="{% querystring page=page_obj.previous_page_number %}">previous</a>
-                {% endif %}
-                <span class="step-links__current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
-                {% if page_obj.has_next %}
-                    <a href="{% querystring page=page_obj.next_page_number %}">&raquo; next</a>
-                    <a href="{% querystring page=page_obj.paginator.num_pages %}">last</a>
-                {% endif %}
-            </span>
+    <div x-data="{ showSnippetPreview: false, activeSnippet: { title: '', code: '' } }"
+         class="wrapper | u-max-inline-sz-l">
+        <div class="stack">
+            <section class="grid">
+                {% for snippet in snippets %}<c-snippet-card :snippet=snippet />{% endfor %}
+            </section>
+            <c-pagination :page_obj="page_obj" />
         </div>
+        <c-snippet-preview-modal />
     </div>
 {% endblock %}

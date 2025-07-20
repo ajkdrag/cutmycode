@@ -20,6 +20,9 @@ class Comment(models.Model):
         related_name="comments",
     )
 
+    class Meta:
+        ordering = ["-created_at"]
+
     def __str__(self):
         return truncatechars(self.body, 50)
 

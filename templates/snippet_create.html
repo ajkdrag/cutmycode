@@ -20,20 +20,20 @@
                     {% endif %}
                 </div>
                 <div class="c-field | stack | u-gap-2xs">
-                    <label for="{{ form.description.id_for_label }}" class="c-label">{{ form.description.label }}</label>
-                    {{ form.description }}
-                    {% if form.description.errors %}
-                        <div class="stack | u-gap-2xs">
-                            {% for error in form.description.errors %}<div class="c-error-list__item">{{ error }}</div>{% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="c-field | stack | u-gap-2xs">
                     <label for="{{ form.code.id_for_label }}" class="c-label">{{ form.code.label }}</label>
                     {{ form.code }}
                     {% if form.code.errors %}
                         <div class="stack | u-gap-2xs">
                             {% for error in form.code.errors %}<div class="c-error-list__item">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="c-field | stack | u-gap-2xs">
+                    <label for="{{ form.description.id_for_label }}" class="c-label">{{ form.description.label }}</label>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                        <div class="stack | u-gap-2xs">
+                            {% for error in form.description.errors %}<div class="c-error-list__item">{{ error }}</div>{% endfor %}
                         </div>
                     {% endif %}
                 </div>
@@ -46,7 +46,7 @@
                         </div>
                     {% endif %}
                 </div>
-                <button class="c-button c-button--primary" type="submit">Create Snippet</button>
+                <button class="c-button c-button--primary c-button--large" type="submit">Create Snippet</button>
             </div>
         </form>
     </div>

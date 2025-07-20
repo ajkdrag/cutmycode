@@ -7,7 +7,7 @@
                 <div class="spaced-row">
                     <h4>Profile</h4>
                     <a href="{{ user.get_edit_url }}"
-                       class="c-button c-button--secondary c-button--small">Edit</a>
+                       class="c-button c-button--secondary">Edit</a>
                 </div>
                 <div class="stack | u-gap-s">
                     <div class="c-field | stack | u-gap-2xs">
@@ -39,7 +39,7 @@
                 </div>
                 <form class="u-align-self-end" method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit" class="c-button c-button--tertiary c-button--small">Logout</button>
+                    <button type="submit" class="c-button c-button--tertiary">Logout</button>
                 </form>
             </div>
         </div>

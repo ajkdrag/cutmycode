@@ -11,6 +11,10 @@
   justify-content: flex-end;
 }
 
+.u-justify-content-center {
+  justify-content: center;
+}
+
 .u-align-self-end {
   align-self: flex-end;
 }

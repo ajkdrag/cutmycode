@@ -1,4 +1,5 @@
-<article class="c-card | box | u-padding-xs">
+<article @click="activeSnippet = { title: '{{ snippet.title | escapejs }}', code: '{{ snippet.code | escapejs }}' }; showSnippetPreview = true"
+         class="c-card | box | u-padding-xs">
     <div class="stack | u-gap-s u-min-block-sz-100">
         <header class="sidebar | u-gap-2xs">
             <div style="width: 50px;
@@ -17,9 +18,7 @@
                 </svg>
             </div>
             <div class="stack | u-gap-0">
-                <p>
-                    <a class="c-card__title" href="{{ snippet.get_absolute_url }}">{{ snippet.title }}</a>
-                </p>
+                <p class="c-card__title">{{ snippet.title }}</p>
                 <p class="c-card__meta">by {{ snippet.user }}, {{ snippet.created_at | timesince }} ago</p>
             </div>
         </header>
@@ -27,13 +26,14 @@
         <section class="u-padding-xs u-bg-secondary" style="flex-grow:1;">
             <pre class="u-text-small u-pos-relative"><code>{{ snippet.code | truncatechars:100 }}</code></pre>
         </section>
-        <footer class="spaced-row">
+        <footer @click.stop class="spaced-row">
             <div class="cluster | u-gap-s">
                 <button class="c-card__action" aria-label="Like post">♥</button>
                 <button class="c-card__action" aria-label="Share post">↗</button>
                 <button class="c-card__action" aria-label="Bookmark post">🔖</button>
             </div>
-            <button class="c-button c-button--small | u-pos-relative">Read More</button>
+            <a href="{{ snippet.get_absolute_url }}"
+               class="c-button | u-pos-relative">Read More</a>
         </footer>
     </div>
 </article>

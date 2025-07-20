@@ -8,21 +8,8 @@
                     <li class="c-nav__item">
                         <a href="{% url 'snippets:dashboard' %}" class="c-nav__link">{{ user.username }}</a>
                     </li>
-                    <!-- <li class="c-nav__item"> -->
-                    <!--     <form method="post" action="{% url 'logout' %}"> -->
-                    <!--         {% csrf_token %} -->
-                    <!--         <button type="submit" class="c-button c-button--small">Logout</button> -->
-                    <!--     </form> -->
-                    <!-- </li> -->
-                {% else %}
-                    <li class="c-nav__item">
-                        <a href="{% url 'login' %}" class="c-nav__link">Login</a>
-                    </li>
                 {% endif %}
-                <li class="c-nav__item">
-                    <a class="c-button c-button--small"
-                       href="{% url 'snippets:snippet_create' %}">Create</a>
-                </li>
+                <a class="c-button" href="{% url 'snippets:snippet_create' %}">Create</a>
             </ul>
         </nav>
     </div>
