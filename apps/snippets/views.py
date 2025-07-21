@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.http import HttpResponseForbidden
 
 from .models import SharedSnippet, Snippet
-from .forms import SnippetCreateForm
+from .forms import SnippetCreateForm, SnippetEditForm
 from apps.comments.forms import CommentForm
 
 #############
@@ -65,8 +65,8 @@ class SnippetDetailView(DetailView):
 
 class SnippetEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Snippet
+    form_class = SnippetEditForm
     template_name = "snippet_edit.html"
-    fields = ["title", "description", "code", "language"]
 
     def test_func(self):
         obj = self.get_object()
@@ -95,8 +95,6 @@ class CreateShareLinkView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         snippet = get_object_or_404(Snippet, pk=kwargs["pk"])
-        if snippet.user != request.user:
-            return HttpResponseForbidden()
         shared_snippet = SharedSnippet.objects.create(snippet=snippet)
         return redirect(shared_snippet.get_absolute_url())
 

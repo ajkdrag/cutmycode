@@ -10,3 +10,12 @@ class SnippetCreateForm(forms.ModelForm):
         widgets = {
             "description": Textarea(attrs={"rows": 2}),
         }
+
+
+class SnippetEditForm(forms.ModelForm):
+    class Meta:
+        model = Snippet
+        fields = ["title", "code", "description", "language"]
+        widgets = {
+            "description": Textarea(attrs={"rows": 2}),
+        }

@@ -1,0 +1,12 @@
+{% load highlight %}
+<c-vars class_extras code lang truncate x_text_var />
+<section {% if x_text_var %}x-html={{ x_text_var }}{% endif %}
+         class="u-text-small u-padding-xs u-bg-secondary {{ class_extras }}">
+    {% if not x_text_var %}
+        {% if truncate %}
+            {{ code | truncatechars:truncate | syntax_highlight:lang }}
+        {% else %}
+            {{ code | syntax_highlight:lang }}
+        {% endif %}
+    {% endif %}
+</section>

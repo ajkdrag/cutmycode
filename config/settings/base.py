@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     "debug_toolbar",
     # "template_partials",
     # custom apps
-    "apps.core",
     "apps.accounts",
     "apps.snippets",
     "apps.comments",

@@ -1,4 +1,5 @@
-<article @click="activeSnippet = { title: '{{ snippet.title | escapejs }}', code: '{{ snippet.code | escapejs }}' }; showSnippetPreview = true"
+{% load highlight %}
+<article @click="activeSnippet = { title: '{{ snippet.title | escapejs }}', code: '{{ snippet.code | syntax_highlight:snippet.language | escapejs }}' }; showSnippetPreview = true"
          class="c-card | box | u-padding-xs">
     <div class="stack | u-gap-s u-min-block-sz-100">
         <header class="sidebar | u-gap-2xs">
@@ -23,9 +24,7 @@
             </div>
         </header>
         {% if snippet.description %}<p class="u-text-small">{{ snippet.description | truncatechars:30 }}</p>{% endif %}
-        <section class="u-padding-xs u-bg-secondary" style="flex-grow:1;">
-            <pre class="u-text-small u-pos-relative"><code>{{ snippet.code | truncatechars:100 }}</code></pre>
-        </section>
+        <c-code-block :code="snippet.code" lang="{{ snippet.language }}" truncate="100" class_extras="u-flex-grow u-pos-relative" />
         <footer @click.stop class="spaced-row">
             <div class="cluster | u-gap-s">
                 <button class="c-card__action" aria-label="Like post">♥</button>

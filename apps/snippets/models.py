@@ -10,6 +10,28 @@ LANGUAGE_CHOICES = {
     "python": "Python",
     "java": "Java",
     "cpp": "C++",
+    "javascript": "JavaScript",
+    "html": "HTML",
+    "css": "CSS",
+    "bash": "Bash",
+    "sql": "SQL",
+    "markdown": "Markdown",
+    "json": "JSON",
+    "xml": "XML",
+    "yaml": "YAML",
+    "rust": "Rust",
+    "go": "Go",
+    "csharp": "C#",
+    "php": "PHP",
+    "ruby": "Ruby",
+    "swift": "Swift",
+    "kotlin": "Kotlin",
+    "typescript": "TypeScript",
+    "dart": "Dart",
+    "scala": "Scala",
+    "haskell": "Haskell",
+    "perl": "Perl",
+    "lua": "Lua",
 }
 
 
@@ -44,6 +66,9 @@ class Snippet(models.Model):
 
 
 class SharedSnippet(models.Model):
+    # TODO: add lazy delete upon read + cron/celery/database task for
+    # deleting expired shares
+
     snippet = models.ForeignKey(Snippet, on_delete=models.CASCADE)
     token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)

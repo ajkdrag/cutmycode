@@ -8,9 +8,9 @@
                     <h4>{{ snippet.title }}</h4>
                     <p class="u-text-small u-text-muted">Shared snippet by {{ snippet.user.username }}</p>
                 </div>
-                <p>{{ snippet.description }}</p>
+                {% if snippet.description %}<p>{{ snippet.description }}</p>{% endif %}
                 <section class="stack | u-gap-2xs">
-                    <pre class="u-text-small | u-padding-xs u-bg-secondary"><code>{{ snippet.code }}</code></pre>
+                    <c-code-block :code="snippet.code" lang="{{ snippet.language }}" />
                 </section>
             </div>
         </div>

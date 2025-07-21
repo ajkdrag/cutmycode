@@ -11,4 +11,5 @@ dependencies = [
     "django-environ>=0.12.0",
     "django-htmx>=1.23.0",
     "django-template-partials>=24.4",
+    "pygments>=2.19.2",
 ]

@@ -22,4 +22,8 @@
   .u-width-fit {
     width: fit-content;
   }
+
+  .u-flex-grow {
+    flex-grow: 1;
+  }
 }
