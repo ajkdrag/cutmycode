@@ -11,6 +11,6 @@ register = template.Library()
 def syntax_highlight(value, language="python", autoescape=True):
     print(value)
     lexer = get_lexer_by_name(language)
-    formatter = HtmlFormatter(wrapcode=True)
+    formatter = HtmlFormatter(wrapcode=True, style="one-dark")
     result = highlight(value, lexer, formatter)
     return mark_safe(result)

@@ -38,4 +38,8 @@
   .u-text-inverted {
     color: var(--color-text-inverted);
   }
+
+  .u-text-success {
+    color: var(--color-success);
+  }
 }

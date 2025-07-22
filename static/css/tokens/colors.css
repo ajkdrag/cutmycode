@@ -36,7 +36,7 @@
 
   /* Semantic Tokens: Border */
   --color-border: var(--neutral-900);
-  --color-border-muted: var(--neutral-700);
+  --color-border-muted: var(--neutral-500);
 
   /* Semantic Tokens: Shadows */
   --color-shadow: var(--neutral-500);

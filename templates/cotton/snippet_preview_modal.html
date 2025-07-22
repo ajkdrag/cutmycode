@@ -7,7 +7,7 @@
                     <button @click="showSnippetPreview = false"
                             class="c-button c-button--tertiary">Close</button>
                 </div>
-                <c-code-block x_text_var="activeSnippet.code" />
+                <c-code-block x_code="activeSnippet.code" x_lang="activeSnippet.lang" />
             </div>
         </div>
     </template>

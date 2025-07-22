@@ -70,6 +70,14 @@
   .u-padding-inline-s {
     padding-inline: var(--space-s);
   }
+
+  .u-padding-inline-xs {
+    padding-inline: var(--space-xs);
+  }
+  .u-padding-inline-2xs {
+    padding-inline: var(--space-2xs);
+  }
+
   .u-padding-inline-m {
     padding-inline: var(--space-m);
   }

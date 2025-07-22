@@ -1,12 +1,29 @@
 {% load highlight %}
-<c-vars class_extras code lang truncate x_text_var />
-<section {% if x_text_var %}x-html={{ x_text_var }}{% endif %}
-         class="u-text-small u-padding-xs u-bg-secondary {{ class_extras }}">
-    {% if not x_text_var %}
-        {% if truncate %}
-            {{ code | truncatechars:truncate | syntax_highlight:lang }}
-        {% else %}
-            {{ code | syntax_highlight:lang }}
+<c-vars class_extras code lang truncate x_code x_lang />
+<section x-data="{copied: false}"
+         class="stack | u-bg-secondary u-gap-0 {{ class_extras }}">
+    <header class="spaced-row">
+        <p {% if x_lang %}x-text={{ x_lang }}{% endif %}
+           class="u-padding-inline-2xs u-text-small u-text-muted u-border-thin u-border-muted">
+            {% if not x_lang %}{{ lang }}{% endif %}
+        </p>
+        <button type="button"
+                @click.stop="$copy()"
+                class="cluster | u-align-items-center">
+            <span class="u-padding-inline-2xs u-text-small u-text-muted u-border-thin u-border-muted"
+                  x-show="!copied">Copy</span>
+            <span class="u-padding-inline-2xs u-text-small u-text-success u-border-thin u-border-success"
+                  x-show="copied">Copied</span>
+        </button>
+    </header>
+    <section {% if x_code %}x-html={{ x_code }}{% endif %}
+             class="u-text-small u-padding-xs">
+        {% if not x_code %}
+            {% if truncate %}
+                {{ code | truncatechars:truncate | syntax_highlight:lang }}
+            {% else %}
+                {{ code | syntax_highlight:lang }}
+            {% endif %}
         {% endif %}
-    {% endif %}
+    </section>
 </section>
