@@ -1,0 +1,45 @@
+@layer utilities {
+  /* Text alignment */
+  .u-text-left {
+    text-align: left;
+  }
+  .u-text-center {
+    text-align: center;
+  }
+  .u-text-right {
+    text-align: right;
+  }
+
+  /* Font sizes */
+  .u-text-small {
+    font-size: var(--fs-small);
+  }
+
+  .u-text-xs {
+    font-size: var(--fs-xs);
+  }
+
+  /* Font weights */
+  .u-fw-regular {
+    font-weight: var(--fw-regular);
+  }
+  .u-fw-semibold {
+    font-weight: var(--fw-semibold);
+  }
+  .u-fw-bold {
+    font-weight: var(--fw-bold);
+  }
+
+  /* Text colors using semantic tokens */
+  .u-text-muted {
+    color: var(--color-text-muted);
+  }
+
+  .u-text-inverted {
+    color: var(--color-text-inverted);
+  }
+
+  .u-text-success {
+    color: var(--color-success);
+  }
+}

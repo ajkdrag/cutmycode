@@ -1,0 +1,29 @@
+{% if page_obj.paginator.num_pages > 1 %}
+    <div class="wrapper | u-margin-start-l">
+        <div class="cluster | u-gap-2xs">
+            <!-- Previous Button -->
+            {% if page_obj.has_previous %}
+                <a href="{% querystring page=page_obj.previous_page_number %}"
+                   class="c-button c-button--tertiary">Previous</a>
+            {% else %}
+                <button class="c-button c-button--tertiary" disabled>Previous</button>
+            {% endif %}
+            <!-- Page Numbers -->
+            {% for num in page_obj.paginator.page_range %}
+                {% if num == page_obj.number %}
+                    <span class="c-button">{{ num }}</span>
+                {% else %}
+                    <a href="{% querystring page=num %}" class="c-button c-button--tertiary">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+            <!-- Next Button -->
+            {% if page_obj.has_next %}
+                <a href="{% querystring page=page_obj.next_page_number %}"
+                   class="c-button c-button--tertiary">Next</a>
+            {% else %}
+                <button class="c-button c-button--tertiary" disabled>Next</button>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+

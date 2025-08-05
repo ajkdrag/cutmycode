@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Collections{% endblock %}
+{% block content %}
+    <div x-data="{ showSnippetPreview: false, activeSnippet: { title: '', code: '' } }"
+         class="wrapper | u-max-inline-sz-l">
+        <div class="sidebar | u-gap-xl">
+            <aside class="stack | u-gap-2xs">
+                <a href="{% url 'snippets:dashboard' %}"
+                   class="c-button  c-button--tertiary">My Snippets</a>
+                <a href="{% url 'snippets:collections' %}" class="c-button">Collections</a>
+                <a href="{{ user.get_absolute_url }}"
+                   class="c-button c-button--tertiary">Settings</a>
+            </aside>
+            <div class="stack">
+                <div class="spaced-row">
+                    <h4>Recent Collections</h4>
+                    <a href="{% url 'snippets:collection_create' %}"
+                       class="c-button c-button--primary c-button--large">Create Collection</a>
+                </div>
+                {% if collections %}
+                    <ul class="stack | u-gap-2xs" role="list">
+                        {% for collection in collections %}
+                            <li>
+                                <a href="{{ collection.get_absolute_url }}"
+                                   class="c-button c-button--tertiary c-button--large">{{ collection.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="box | u-padding-l">
+                        <p class="u-text-muted | u-text-center">You haven't created any collections yet.</p>
+                    </div>
+                {% endif %}
+                <c-pagination :page_obj="page_obj" />
+            </div>
+        </div>
+        <c-snippet-preview-modal />
+    </div>
+{% endblock %}

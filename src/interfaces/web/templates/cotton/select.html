@@ -1,0 +1,6 @@
+<c-vars name id choices selected />
+<select name="{{ name }}" id="{{ id }}" class="c-select">
+    {% for value, label in choices %}
+        <option value="{{ value }}" {% if value == selected %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+</select>

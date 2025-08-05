@@ -1,0 +1,8 @@
+<c-vars id label field errors />
+{% if field %}
+    <div class="c-field | stack | u-gap-2xs">
+        <label for="{{ id }}" class="c-label">{{ label }}</label>
+        {{ field }}
+        <c-form-errors :errors="errors" />
+    </div>
+{% endif %}

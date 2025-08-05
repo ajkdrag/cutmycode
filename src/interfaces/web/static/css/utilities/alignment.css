@@ -1,0 +1,24 @@
+.u-center-self {
+  margin-inline: auto;
+  justify-content: center;
+}
+
+.u-align-items-center {
+  align-items: center;
+}
+
+.u-justify-content-end {
+  justify-content: flex-end;
+}
+
+.u-justify-content-center {
+  justify-content: center;
+}
+
+.u-align-self-end {
+  align-self: flex-end;
+}
+
+.u-pos-relative {
+  position: relative;
+}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}
+    Log In
+{% endblock title %}
+{% block content %}
+    <div class="wrapper | u-max-inline-sz-s">
+        <form class="c-form | box" method="post">
+            <div class="stack">
+                {% csrf_token %}
+                <c-form-errors :errors="form.non_field_errors" />
+                <c-form-field :id="form.username.id_for_label" :label="form.username.label" :field="form.username" :errors="form.username.errors" />
+                <c-form-field :id="form.password.id_for_label" :label="form.password.label" :field="form.password" :errors="form.password.errors" />
+                <div class="stack | u-gap-2xs">
+                    <button class="c-button c-button--large" type="submit">Log In</button>
+                    <a class="c-button c-button--large | u-text-center"
+                       href="{% url 'signup' %}"
+                       class="c-nav__link">Create Account</a>
+                    <p>
+                        <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% load syntax_highlight %}
+<c-vars class_extras code language truncate />
+<section x-data="{ copied: false }"
+         class="stack | u-bg-secondary u-gap-0 {{ class_extras }}">
+    <header class="spaced-row">
+        <p class="u-padding-inline-2xs u-text-small u-text-muted u-border-thin u-border-muted">{{ language }}</p>
+        <button type="button"
+                @click.stop="$copy()"
+                class="cluster | u-align-items-center">
+            <span class="u-padding-inline-2xs u-text-small u-text-muted u-border-thin u-border-muted"
+                  x-show="!copied">Copy</span>
+            <span class="u-padding-inline-2xs u-text-small u-text-success u-border-thin u-border-success"
+                  x-show="copied">Copied</span>
+        </button>
+    </header>
+    <section class="u-text-small u-padding-xs">
+        {% if truncate %}
+            {{ code | truncatechars:truncate | syntax_highlight:language }}
+        {% else %}
+            {{ code | syntax_highlight:language }}
+        {% endif %}
+    </section>
+</section>

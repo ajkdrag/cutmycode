@@ -1,0 +1,17 @@
+{% extends 'dashboard.html' %}
+{% block dashboard_content %}
+    <c-dashboard-aside active_tab="profile" />
+    <div>
+        <form class="box | u-bg-secondary u-max-inline-sz-s u-center-self"
+              method="post">
+            <div class="stack">
+                {% csrf_token %}
+                <c-form-field :id="form.username.id_for_label" :label="form.username.label" :field="form.username" :errors="form.username.errors" />
+                <c-form-errors :errors="form.non_field_errors" />
+                <c-form-field :id="form.first_name.id_for_label" :label="form.first_name.label" :field="form.first_name" :errors="form.first_name.errors" />
+                <c-form-field :id="form.last_name.id_for_label" :label="form.last_name.label" :field="form.last_name" :errors="form.last_name.errors" />
+                <button class="c-button c-button--primary c-button--large" type="submit">Save Changes</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

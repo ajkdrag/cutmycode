@@ -1,0 +1,16 @@
+<c-vars snippet_id like_count is_liked size="medium" />
+{% url "like_snippet" snippet.id as like_url %}
+{% querystring next=request.get_full_path as next_qs %}
+<form action="{{ like_url }}{{ next_qs }}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="cluster | u-gap-3xs u-align-items-center">
+        <ion-icon name=
+        {% if is_liked %}
+            "heart"
+        {% else %}
+            "heart-outline"
+        {% endif %}
+        size={{ size }}></ion-icon>
+        <span class="u-text-small u-text-muted">{{ like_count }}</span>
+    </button>
+</form>

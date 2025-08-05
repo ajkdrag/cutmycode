@@ -1,0 +1,68 @@
+@layer composition {
+  /* Content wrapper for centering and max-width */
+  .wrapper {
+    box-sizing: content-box;
+    max-inline-size: min(100%, var(--measure));
+    margin-inline: auto;
+    padding-inline: var(--space-m);
+  }
+
+  .box {
+    padding: var(--space-m);
+    border: 2px solid var(--color-border);
+  }
+
+  .cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: flex-start;
+    gap: var(--space-m);
+  }
+
+  .spaced-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-m);
+  }
+
+  /* Pure vertical stack with flexbox */
+  .stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--space-m);
+  }
+
+  /* grids */
+  .grid {
+    --grid-min-item-size: var(--measure-xs);
+    --grid-columns: repeat(
+      auto-fit,
+      minmax(min(100%, var(--grid-min-item-size)), 1fr)
+    );
+    display: grid;
+    gap: var(--grid-gap, var(--space-m));
+    grid-template-columns: var(--grid-columns);
+  }
+
+  .grid--fill {
+    --grid-columns: repeat(
+      auto-fill,
+      minmax(min(100%, var(--grid-min-item-size)), 1fr)
+    );
+  }
+
+  .grid--2 {
+    --grid-columns: repeat(2, 1fr);
+  }
+
+  .sidebar {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: var(--space-m);
+  }
+}

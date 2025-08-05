@@ -1,0 +1,19 @@
+@layer components {
+  .c-logo {
+    font-family: var(--ff-heading);
+    font-size: var(--fs-h5);
+    font-weight: var(--fw-bold);
+    color: var(--color-logo);
+    text-decoration: none;
+  }
+
+  .c-nav__list {
+    font-family: var(--ff-heading);
+    font-weight: var(--fw-semibold);
+  }
+
+  .c-nav__link {
+    color: var(--color-text-heading);
+    text-decoration: none;
+  }
+}

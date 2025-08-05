@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Create Snippet{% endblock %}
+{% block content %}
+    <div class="wrapper">
+        <form class="c-form | box" method="post">
+            <div class="stack">
+                {% csrf_token %}
+                <c-form-errors :errors="form.non_field_errors" />
+                <c-form-field :id="form.title.id_for_label" :label="form.title.label" :field="form.title" :errors="form.title.errors" />
+                <c-form-field :id="form.code.id_for_label" :label="form.code.label" :field="form.code" :errors="form.code.errors" />
+                <c-form-field :id="form.description.id_for_label" :label="form.description.label" :field="form.description" :errors="form.description.errors" />
+                <c-form-field :id="form.language.id_for_label" :label="form.language.label" :field="form.language" :errors="form.language.errors" />
+                <button class="c-button c-button--large" type="submit">Create Snippet</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

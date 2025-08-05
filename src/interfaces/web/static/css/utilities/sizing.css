@@ -1,0 +1,33 @@
+@layer utilities {
+  .u-max-inline-sz-l {
+    max-inline-size: var(--measure-l);
+  }
+
+  .u-max-inline-sz-m {
+    max-inline-size: var(--measure-m);
+  }
+
+  .u-max-inline-sz-s {
+    max-inline-size: var(--measure-s);
+  }
+
+  .u-max-inline-sz-100 {
+    max-inline-size: 100%;
+  }
+
+  .u-min-block-sz-100 {
+    min-block-size: 100%;
+  }
+
+  /* Width utilities */
+  .u-width-100 {
+    width: 100%;
+  }
+  .u-width-fit {
+    width: fit-content;
+  }
+
+  .u-flex-grow {
+    flex-grow: 1;
+  }
+}

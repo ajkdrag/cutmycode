@@ -1,0 +1,128 @@
+@layer global {
+  body {
+    font-family: var(--ff-body);
+    font-size: var(--fs-body);
+    font-weight: var(--fw-regular);
+    line-height: var(--lh-regular);
+    color: var(--color-text-body);
+    background-color: var(--color-bg-primary);
+    text-rendering: optimizeLegibility;
+  }
+
+  main {
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--ff-heading);
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-tight);
+    color: var(--color-text-heading);
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  h1 {
+    font-size: var(--fs-h1);
+  }
+  h2 {
+    font-size: var(--fs-h2);
+  }
+  h3 {
+    font-size: var(--fs-h3);
+  }
+  h4 {
+    font-size: var(--fs-h4);
+  }
+  h5 {
+    font-size: var(--fs-h5);
+  }
+  h6 {
+    font-size: var(--fs-body);
+  }
+
+  p {
+    line-height: var(--lh-relaxed);
+    max-width: var(--measure);
+    text-wrap: pretty;
+    overflow-wrap: break-word;
+    margin: 0;
+  }
+
+  small {
+    font-size: var(--fs-small);
+    color: var(--color-text-muted);
+  }
+
+  strong {
+    font-weight: var(--fw-bold);
+    color: var(--color-text-heading);
+  }
+
+  em {
+    font-style: italic;
+    color: var(--color-text-heading);
+  }
+
+  /* Links */
+  a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: var(--space-3xs);
+    text-decoration-skip-ink: auto;
+  }
+
+  a:hover {
+    background: var(--color-link-bg-hover);
+    text-decoration: none;
+  }
+
+  /* Focus styles */
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  /* Code elements */
+  code {
+    font-family: var(--ff-mono);
+  }
+
+  pre {
+    font-family: var(--ff-mono);
+    overflow-x: auto;
+    line-height: var(--lh-regular);
+  }
+
+  /* Form Elements */
+  input,
+  textarea,
+  select {
+    border: var(--border-muted);
+    border-radius: var(--radius-small);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-body);
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    border-color: var(--color-border);
+    outline: none;
+  }
+
+  label {
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-heading);
+  }
+
+  hr {
+    border: 2px solid var(--color-border-muted);
+    margin: 0;
+  }
+}

@@ -1,0 +1,42 @@
+@layer components {
+  .c-header {
+    background: var(--color-bg-secondary);
+  }
+
+  /* Sticky header variant */
+  .c-header[data-position="sticky"] {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  /* Minimal header variant */
+  .c-header--minimal {
+    background: transparent;
+    border: none;
+  }
+
+  /* Search component */
+  .c-search__form {
+    display: flex;
+    align-items: stretch;
+    gap: var(--space-2xs);
+  }
+
+  .c-search__input {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .c-search__filter {
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .c-search__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+```
+}

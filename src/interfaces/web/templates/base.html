@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>
+            {% block title %}CutMyCode{% endblock %}
+        </title>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/highlight.css' %}" />
+        <!-- Alpine.js -->
+        <script defer
+                src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <!-- HTMX -->
+        <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+        <!-- Ionicons -->
+        <script type="module"
+                src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule
+                src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    </head>
+    <body>
+        <c-header logo="CutMyCode" :attrs />
+        <main class="u-margin-start-l">
+            {% block content %}{% endblock %}
+        </main>
+        <c-footer />
+        <script src="{% static 'js/alpine.js' %}"></script>
+    </body>
+</html>

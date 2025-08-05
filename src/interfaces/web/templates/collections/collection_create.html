@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Create Collection{% endblock %}
+{% block content %}
+    <div class="wrapper | u-max-inline-sz-s">
+        <form class="c-form | box" method="post">
+            <div class="stack">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="stack | u-gap-2xs" role="list">
+                        {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
+                    </div>
+                {% endif %}
+                <div class="c-field | stack | u-gap-2xs">
+                    <label for="{{ form.name.id_for_label }}" class="c-label">{{ form.name.label }}</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                        <div class="stack | u-gap-2xs">
+                            {% for error in form.name.errors %}<div class="c-error-list__item">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <button class="c-button c-button--primary c-button--large" type="submit">Create Collection</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

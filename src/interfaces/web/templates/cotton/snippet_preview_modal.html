@@ -1,0 +1,14 @@
+<div x-show="showSnippetPreview" class="c-modal-overlay">
+    <template x-if="activeSnippet">
+        <div class="c-modal-content | box | u-shadow">
+            <div class="stack">
+                <div class="spaced-row">
+                    <h4 x-text="activeSnippet.title"></h4>
+                    <button @click="showSnippetPreview = false"
+                            class="c-button c-button--tertiary">Close</button>
+                </div>
+                <c-code-block x_code="activeSnippet.code" x_lang="activeSnippet.lang" />
+            </div>
+        </div>
+    </template>
+</div>

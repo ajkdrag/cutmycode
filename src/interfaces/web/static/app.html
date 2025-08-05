@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HTML Playground - CutMyCode</title>
+        <link rel="stylesheet" href="./css/main.css">
+        <style>
+        @layer components {
+            .playground {
+                height: 100vh;
+                display: grid;
+                grid-template-columns: 1fr 4px 1fr;
+                grid-template-rows: auto 1fr;
+                gap: 0;
+                overflow: hidden;
+            }
+
+            .playground__header {
+                grid-column: 1 / -1;
+                background: var(--color-surface);
+                border-bottom: 1px solid var(--color-border);
+                padding: var(--space-s);
+            }
+
+            .playground__pane {
+                display: flex;
+                flex-direction: column;
+                min-height: 0;
+                background: var(--color-surface);
+                border: 1px solid var(--color-border);
+            }
+
+            .playground__pane-header {
+                padding: var(--space-xs);
+                background: var(--color-surface-variant);
+                border-bottom: 1px solid var(--color-border);
+                font-size: var(--text-sm);
+                font-weight: 600;
+                color: var(--color-text-muted);
+            }
+
+            .playground__editor {
+                flex: 1;
+                border: none;
+                resize: none;
+                outline: none;
+                padding: var(--space-s);
+                font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+                font-size: 14px;
+                line-height: 1.5;
+                background: var(--color-surface-dark, #1a1a1a);
+                color: var(--color-text-inverse, #e5e5e5);
+                tab-size: 2;
+                min-height: 0;
+            }
+
+            .playground__preview {
+                flex: 1;
+                border: none;
+                background: white;
+                min-height: 0;
+            }
+
+            .playground__resizer {
+                background: var(--color-border);
+                cursor: col-resize;
+                user-select: none;
+                position: relative;
+            }
+
+            .playground__resizer--horizontal {
+                cursor: row-resize;
+            }
+
+            .playground__resizer:hover {
+                background: var(--color-primary);
+            }
+
+            .playground__left {
+                grid-column: 1;
+                grid-row: 2 / -1;
+                display: grid;
+                grid-template-rows: 1fr 4px 1fr;
+                gap: 0;
+            }
+
+            .playground__right {
+                grid-column: 3;
+                grid-row: 2 / -1;
+                display: grid;
+                grid-template-rows: 1fr 4px 1fr;
+                gap: 0;
+            }
+
+            .playground__html-pane {
+                grid-row: 1;
+            }
+
+            .playground__css-pane {
+                grid-row: 3;
+            }
+
+            .playground__js-pane {
+                grid-row: 1;
+            }
+
+            .playground__preview-pane {
+                grid-row: 3;
+            }
+
+            .playground__vertical-resizer {
+                grid-column: 2;
+                grid-row: 2 / -1;
+            }
+
+            .playground__horizontal-resizer-left {
+                grid-row: 2;
+            }
+
+            .playground__horizontal-resizer-right {
+                grid-row: 2;
+            }
+        }
+        </style>
+    </head>
+    <body>
+        <div class="playground">
+            <!-- Header -->
+            <div class="playground__header">
+                <h4 class="u-text-l">HTML Playground</h4>
+                <p class="u-text-small u-text-muted">Live HTML/CSS/JS editor with your design system</p>
+            </div>
+            <!-- Left Column -->
+            <div class="playground__left">
+                <!-- HTML Editor -->
+                <div class="playground__pane playground__html-pane">
+                    <div class="playground__pane-header">HTML</div>
+                    <textarea class="playground__editor"
+                              id="html-editor"
+                              placeholder="Enter your HTML here..."></textarea>
+                </div>
+                <!-- Horizontal Resizer -->
+                <div class="playground__resizer playground__resizer--horizontal playground__horizontal-resizer-left"
+                     data-direction="horizontal-left"></div>
+                <!-- CSS Editor -->
+                <div class="playground__pane playground__css-pane">
+                    <div class="playground__pane-header">CSS</div>
+                    <textarea class="playground__editor" id="css-editor" placeholder="Enter your CSS here...">@import 'css/main.css';
+/* Your custom styles here */
+</textarea>
+                </div>
+            </div>
+            <!-- Vertical Resizer -->
+            <div class="playground__resizer playground__vertical-resizer"
+                 data-direction="vertical"></div>
+            <!-- Right Column -->
+            <div class="playground__right">
+                <!-- JavaScript Editor -->
+                <div class="playground__pane playground__js-pane">
+                    <div class="playground__pane-header">JavaScript</div>
+                    <textarea class="playground__editor" id="js-editor" placeholder="Enter your JavaScript here...">// Your JavaScript code here
+console.log('Hello from the playground!');</textarea>
+                </div>
+                <!-- Horizontal Resizer -->
+                <div class="playground__resizer playground__resizer--horizontal playground__horizontal-resizer-right"
+                     data-direction="horizontal-right"></div>
+                <!-- Preview -->
+                <div class="playground__pane playground__preview-pane">
+                    <div class="playground__pane-header">Preview</div>
+                    <iframe class="playground__preview" id="preview-frame"></iframe>
+                </div>
+            </div>
+        </div>
+        <script>
+        // Live preview functionality
+        let updateTimeout;
+
+        function updatePreview() {
+            clearTimeout(updateTimeout);
+            updateTimeout = setTimeout(() => {
+                const html = document.getElementById('html-editor').value;
+                const css = document.getElementById('css-editor').value;
+                const js = document.getElementById('js-editor').value;
+                
+                const previewFrame = document.getElementById('preview-frame');
+                const previewDocument = previewFrame.contentDocument || previewFrame.contentWindow.document;
+                
+                const fullHTML = `
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <style>${css}</style>
+                    </head>
+                    <body>
+                        ${html}
+                        <script>
+                            try {
+                                ${js}
+                            } catch (error) {
+                                console.error('JavaScript Error:', error);
+                            }
+                        </` + `script>
+                    </body>
+                    </html>
+                `;
+                
+                previewDocument.open();
+                previewDocument.write(fullHTML);
+                previewDocument.close();
+            }, 300);
+        }
+
+        // Add event listeners for live updates
+        document.getElementById('html-editor').addEventListener('input', updatePreview);
+        document.getElementById('css-editor').addEventListener('input', updatePreview);
+        document.getElementById('js-editor').addEventListener('input', updatePreview);
+
+        // Resizer functionality
+        let isResizing = false;
+        let currentResizer = null;
+
+        document.querySelectorAll('.playground__resizer').forEach(resizer => {
+            resizer.addEventListener('mousedown', (e) => {
+                isResizing = true;
+                currentResizer = resizer;
+                document.body.style.cursor = resizer.dataset.direction === 'vertical' ? 'col-resize' : 'row-resize';
+                document.body.style.userSelect = 'none';
+                e.preventDefault();
+            });
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing || !currentResizer) return;
+            
+            const playground = document.querySelector('.playground');
+            const rect = playground.getBoundingClientRect();
+            
+            if (currentResizer.dataset.direction === 'vertical') {
+                const newLeftWidth = ((e.clientX - rect.left) / rect.width) * 100;
+                
+                if (newLeftWidth > 20 && newLeftWidth < 80) {
+                    playground.style.gridTemplateColumns = `${newLeftWidth}fr 4px ${100 - newLeftWidth}fr`;
+                }
+            } else if (currentResizer.dataset.direction === 'horizontal-left') {
+                const leftColumn = document.querySelector('.playground__left');
+                const leftRect = leftColumn.getBoundingClientRect();
+                const newTopHeight = ((e.clientY - leftRect.top) / leftRect.height) * 100;
+                
+                if (newTopHeight > 20 && newTopHeight < 80) {
+                    leftColumn.style.gridTemplateRows = `${newTopHeight}fr 4px ${100 - newTopHeight}fr`;
+                }
+            } else if (currentResizer.dataset.direction === 'horizontal-right') {
+                const rightColumn = document.querySelector('.playground__right');
+                const rightRect = rightColumn.getBoundingClientRect();
+                const newTopHeight = ((e.clientY - rightRect.top) / rightRect.height) * 100;
+                
+                if (newTopHeight > 20 && newTopHeight < 80) {
+                    rightColumn.style.gridTemplateRows = `${newTopHeight}fr 4px ${100 - newTopHeight}fr`;
+                }
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isResizing = false;
+            currentResizer = null;
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+        });
+
+        // Tab support in textareas
+        document.querySelectorAll('.playground__editor').forEach(editor => {
+            editor.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    const start = editor.selectionStart;
+                    const end = editor.selectionEnd;
+                    
+                    editor.value = editor.value.substring(0, start) + '  ' + editor.value.substring(end);
+                    editor.selectionStart = editor.selectionEnd = start + 2;
+                }
+            });
+        });
+
+        // Initial preview update
+        updatePreview();
+</script>
+</body>
+</html>
+

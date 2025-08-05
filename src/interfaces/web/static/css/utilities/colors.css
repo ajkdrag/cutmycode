@@ -1,0 +1,13 @@
+@layer utilities {
+  /* Background colors using semantic tokens */
+  .u-bg-primary {
+    background-color: var(--color-bg-primary);
+  }
+  .u-bg-inverse {
+    background-color: var(--color-bg-inverted);
+  }
+  .u-bg-secondary {
+    background-color: var(--color-bg-secondary);
+  }
+}
+

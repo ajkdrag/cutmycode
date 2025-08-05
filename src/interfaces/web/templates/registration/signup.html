@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}
+    Sign Up
+{% endblock title %}
+{% block content %}
+    <div class="wrapper | u-max-inline-sz-s">
+        <form class="c-form | box" method="post">
+            <div class="stack">
+                {% csrf_token %}
+                <c-form-errors :errors="form.non_field_errors" />
+                <c-form-field :id="form.username.id_for_label" :label="form.username.label" :field="form.username" :errors="form.username.errors" />
+                <c-form-field :id="form.email.id_for_label" :label="form.email.label" :field="form.email" :errors="form.email.errors" />
+                <c-form-field :id="form.password1.id_for_label" :label="form.password1.label" :field="form.password1" :errors="form.password1.errors" />
+                <c-form-field :id="form.password2.id_for_label" :label="form.password2.label" :field="form.password2" :errors="form.password2.errors" />
+                <button class="c-button c-button--primary c-button--large" type="submit">Sign Up</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

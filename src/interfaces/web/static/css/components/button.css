@@ -1,0 +1,76 @@
+@layer components {
+  .c-button {
+    --button-bg: var(--color-bg-inverted);
+    --button-bg-hover: var(--button-bg);
+    --button-text-color: var(--color-text-inverted);
+    --button-shadow: var(--color-shadow);
+    --button-border-thickness: 2px;
+
+    padding: var(--space-3xs) var(--space-xs);
+    border: var(--button-border-thickness) solid var(--color-border);
+    font-family: var(--ff-body);
+    font-size: var(--fs-small);
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-body);
+    text-decoration: none;
+    cursor: pointer;
+    transition: none;
+
+    box-shadow: var(--button-border-thickness) var(--button-border-thickness) 0
+      var(--button-shadow);
+
+    /* Default appearance */
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+  }
+
+  .c-button:hover {
+    transform: translate(2px, 2px);
+    background-color: var(--button-bg-hover);
+    box-shadow: none;
+  }
+
+  .c-button:focus-visible {
+    outline: var(--border-muted);
+    box-shadow: none;
+  }
+
+  .c-button:active {
+    outline: var(--border-muted);
+    box-shadow: none;
+  }
+
+  /* Disabled state */
+  .c-button:disabled {
+    opacity: 0.5;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  .c-button:disabled:hover {
+    transform: none;
+  }
+
+  .c-button--secondary {
+    --button-bg: var(--color-bg-secondary);
+    --button-text-color: var(--color-text-body);
+    --color-shadow: var(--color-shadow-secondary);
+  }
+
+  .c-button--tertiary {
+    --button-bg: var(--color-bg-primary);
+    --button-bg-hover: var(--color-bg-secondary);
+    --button-text-color: var(--color-text-body);
+    --color-shadow: var(--color-shadow-secondary);
+  }
+
+  /* Size variants */
+  .c-button--small {
+    padding: var(--space-4xs) var(--space-2xs);
+    font-size: var(--fs-small);
+  }
+
+  .c-button--large {
+    padding: var(--space-2xs) var(--space-s);
+    font-size: var(--fs-body);
+  }
+}

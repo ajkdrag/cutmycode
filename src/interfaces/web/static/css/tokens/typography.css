@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap");
+
+:root {
+  /* Typography: Font Families */
+  --ff-heading: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --ff-body: "DM Sans", system-ui, -apple-system, sans-serif;
+  --ff-mono:
+    "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+
+  /* Typography: Font Weights */
+  --fw-regular: 400;
+  --fw-semibold: 500;
+  --fw-bold: 700;
+
+  --fs-xs: clamp(0.7813rem, 0.7747rem + 0.0326vw, 0.8rem);
+  --fs-small: clamp(0.9375rem, 0.9158rem + 0.1087vw, 1rem);
+  --fs-body: clamp(1.125rem, 1.0815rem + 0.2174vw, 1.25rem);
+  --fs-h5: clamp(1.35rem, 1.2761rem + 0.3696vw, 1.5625rem);
+  --fs-h4: clamp(1.62rem, 1.5041rem + 0.5793vw, 1.9531rem);
+  --fs-h3: clamp(1.944rem, 1.771rem + 0.8651vw, 2.4414rem);
+  --fs-h2: clamp(2.3328rem, 2.0827rem + 1.2504vw, 3.0518rem);
+  --fs-h1: clamp(2.7994rem, 2.4462rem + 1.7658vw, 3.8147rem);
+
+  /* Typography: Line Heights */
+  --lh-tight: 1.1;
+  --lh-snug: 1.2;
+  --lh-regular: 1.5;
+  --lh-relaxed: 1.6;
+}

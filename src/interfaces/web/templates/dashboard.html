@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <div class="wrapper | u-max-inline-sz-l">
+        <div class="sidebar | u-gap-xl">
+            {% block dashboard_content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

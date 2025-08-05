@@ -1,0 +1,47 @@
+:root {
+  /* Primitive Tokens: Primary Brand Color (Bright Blue) */
+  --primary-500: hsl(204, 78%, 60%);
+
+  /* Primitive Tokens: Neutral Grayscale */
+  --white: hsl(0, 0%, 100%);
+  --neutral-50: hsl(0, 0%, 98%);
+  --neutral-100: hsl(0, 0%, 92%);
+  --neutral-300: hsl(0, 0%, 75%);
+  --neutral-500: hsl(0, 0%, 45%);
+  --neutral-700: hsl(0, 0%, 25%);
+  --neutral-900: hsl(0, 0%, 0%);
+
+  /* Accents */
+  --accent-500: hsl(51.9 100% 60.4%);
+
+  /* Semantic Tokens: Text */
+  --color-text-body: var(--neutral-900);
+  --color-text-heading: var(--neutral-900);
+  --color-text-muted: var(--neutral-500);
+  --color-text-inverted: var(--white);
+
+  /* Semantic Tokens: Link */
+  --color-link: var(--neutral-900);
+  --color-link-bg-hover: var(--accent-500);
+
+  /* States */
+  --color-error: hsl(20, 88%, 50%);
+  --color-success: hsl(140, 48%, 35%);
+  --color-warning: hsl(43, 88%, 44%);
+
+  /* Semantic Tokens: Background */
+  --color-bg-primary: var(--white);
+  --color-bg-secondary: var(--neutral-100);
+  --color-bg-inverted: var(--neutral-900);
+
+  /* Semantic Tokens: Border */
+  --color-border: var(--neutral-900);
+  --color-border-muted: var(--neutral-500);
+
+  /* Semantic Tokens: Shadows */
+  --color-shadow: var(--neutral-500);
+  --color-shadow-secondary: var(--neutral-900);
+
+  /* Semantic Tokens: Focus */
+  --color-focus: var(--neutral-500);
+}

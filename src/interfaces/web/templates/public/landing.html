@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="wrapper | u-max-inline-sz-l">
+        <div class="stack">
+            {% if search_performed %}
+                <div class="search-results">
+                    <p>Search Results for "{{ query }}"</p>
+                </div>
+            {% endif %}
+            {% if snippets %}
+                <c-snippets :snippets="snippets" />
+            {% elif search_performed %}
+                <div class="no-results">
+                    <p>No snippets found for your search.</p>
+                </div>
+            {% else %}
+                <div class="no-snippets">
+                    <p>No snippets available yet.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

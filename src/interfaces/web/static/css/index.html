@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="main.css" />
+        <title>CutMyCode Design System</title>
+    </head>
+    <body>
+        <!-- Header with composition -->
+        <header class="c-header" data-position="sticky">
+            <div class="c-header__content | wrapper | u-padi-l">
+                <!-- Logo and Nav -->
+                <div class="c-header__row | cluster">
+                    <a href="#" class="c-logo">CutMyCode</a>
+                    <nav class="c-nav">
+                        <ul class="c-nav__list | cluster">
+                            <a class="c-nav__link" href="#layout">Layout</a>
+                            <a class="c-nav__link" href="#components">Components</a>
+                            <a class="c-nav__link" href="#forms">Forms</a>
+                            <a class="c-nav__link" href="#typography">Typography</a>
+                        </ul>
+                    </nav>
+                    <button class="c-button">Get Started</button>
+                </div>
+            </div>
+        </header>
+        <!-- Hero section -->
+        <section class="c-hero | wrapper | u-pad-s">
+            <div class="c-hero__content | grid grid--auto">
+                <section class="c-hero__item | stack stack--tight stack--fit | u-pad-l">
+                    <h2 class="u-text-inverted">CutMyCode Design System</h2>
+                    <p class="u-text-inverted">A simplified, composable design system following modern CSS architecture principles</p>
+                    <button class="c-button c-button--secondary | u-mt-l">Learn More</button>
+                </section>
+                <!-- Code snippet example -->
+                <section class="c-hero__item | u-pad-l u-text-small u-text-muted">
+                    <div style="min-height:250px;" class="u-bg-primary u-pad-m">
+                        <pre><code>&lt;div class="c-card | stack | u-pad-m"&gt;
+  &lt;h3 class="c-card__title"&gt;Component Title&lt;/h3&gt;
+  &lt;p&gt;Content with semantic spacing&lt;/p&gt;
+  &lt;button class="c-button"&gt;Action&lt;/button&gt;
+&lt;/div&gt;
+
+/* Layout composition */
+&lt;section class="wrapper | u-pad-l"&gt;
+  &lt;div class="grid grid--auto"&gt;
+    &lt;article class="c-card | stack"&gt;...&lt;/article&gt;
+    &lt;article class="c-card | stack"&gt;...&lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+                    </div>
+                </section>
+            </div>
+        </section>
+        <!-- Main content -->
+        <main class="wrapper | u-mt-2xl u-padi-l">
+            <div class="stack stack--loose">
+                <!-- Design System Benefits -->
+                <section id="benefits">
+                    <section class="grid grid--auto">
+                        <article class="c-card | stack | u-pad-m">
+                            <p class="c-card__title">Simplified Tokens</p>
+                            <p>Reduced from 50+ color variants to essential primitives and semantic tokens for better maintainability.</p>
+                        </article>
+                        <article class="c-card | stack | u-pad-m">
+                            <p class="c-card__title">Composable</p>
+                            <p>Layout primitives separate structure from aesthetics, enabling flexible, reusable designs.</p>
+                        </article>
+                        <article class="c-card c-card--secondary | stack | u-pad-m">
+                            <p class="c-card__title">Modern CSS</p>
+                            <p>
+                                Uses cascade layers, <code>clamp()</code>, and logical properties for future-proof, accessible styles.
+                            </p>
+                        </article>
+                        <article class="c-card c-card--secondary | stack | u-pad-m">
+                            <p class="c-card__title">Lightweight</p>
+                            <p>Fewer utility classes, cleaner architecture, and better performance through thoughtful design.</p>
+                        </article>
+                    </section>
+                </section>
+                <!-- Layout Primitives -->
+                <section id="layout">
+                    <div class="u-mb-l">
+                        <h4>Layout Primitives</h4>
+                        <p>Composable layout building blocks that handle structure, not aesthetics.</p>
+                    </div>
+                    <section class="stack stack--loose | u-padi-m">
+                        <div>
+                            <h6>Wrapper - Content Centering</h6>
+                            <div class="wrapper | u-bg-secondary u-pad-s u-text-muted"
+                                 style="--wrapper-max-width: 20rem">
+                                <p>
+                                    Content automatically centered with max-width and horizontal padding. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <h6>Stack - Flexbox Vertical</h6>
+                            <div class="stack stack--fit | u-bg-secondary">
+                                <div class="c-box">Stack Item 1</div>
+                                <div class="c-box">Stack Item 2</div>
+                                <div class="c-box">Stack Item 3</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h6>Grid Auto - Responsive Cards</h6>
+                            <div class="grid grid--auto | u-bg-secondary">
+                                <div class="c-box c-box--secondary">Auto Item 1</div>
+                                <div class="c-box c-box--secondary">Auto Item 2</div>
+                                <div class="c-box c-box--secondary">Auto Item 3</div>
+                                <div class="c-box c-box--secondary">Auto Item 4</div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <!-- Components -->
+                <section id="components">
+                    <div class="u-mb-m">
+                        <h4>Components</h4>
+                        <p>UI components that focus on aesthetics, composed with layout primitives.</p>
+                    </div>
+                    <section class="stack stack--loose | u-padi-m">
+                        <div>
+                            <h6>Buttons</h6>
+                            <div class="cluster | u-pad-s">
+                                <button class="c-button">Default</button>
+                                <button class="c-button c-button--secondary">Secondary</button>
+                                <button class="c-button" disabled>Disabled</button>
+                                <button class="c-button c-button--secondary" disabled>Disabled</button>
+                            </div>
+                            <div class="cluster | u-pad-s">
+                                <button class="c-button c-button--small">Small</button>
+                                <button class="c-button">Medium</button>
+                                <button class="c-button c-button--large">Large</button>
+                            </div>
+                        </div>
+                        <div>
+                            <h6>Cards with Composition</h6>
+                            <div class="grid grid--auto">
+                                <article class="c-card | stack | u-pad-m">
+                                    <div class="u-bg-secondary u-border-thin" style="height: 200px;"></div>
+                                    <div class="flow">
+                                        <p class="c-card__title">
+                                            <a href="#">Accessible Card Example</a>
+                                        </p>
+                                        <p class="c-card__meta | u-text-muted">March 15, 2024</p>
+                                    </div>
+                                    <p>
+                                        This card uses composition: <code>.c-code</code> for aesthetics, <code>.flow</code> for spacing, and <code>.grid--auto</code> for layout.
+                                    </p>
+                                    <div class="c-card__footer">
+                                        <button class="c-button">Read More</button>
+                                    </div>
+                                </article>
+                                <article class="c-card c-card--secondary | stack | u-pad-m">
+                                    <div class="u-bg-primary u-border-thin" style="height: 200px;"></div>
+                                    <div class="flow">
+                                        <p class="c-card__title">
+                                            <a href="#">Accessible Card Example</a>
+                                        </p>
+                                        <p class="c-card__meta | u-text-muted">March 15, 2024</p>
+                                    </div>
+                                    <p>
+                                        This card uses composition: <code>.c-code</code> for aesthetics, <code>.flow</code> for spacing, and <code>.grid--auto</code> for layout.
+                                    </p>
+                                    <div class="c-card__footer">
+                                        <button class="c-button">Read More</button>
+                                    </div>
+                                </article>
+                                <article class="c-card c-card--secondary | stack | u-pad-m">
+                                    <div class="flow">
+                                        <p class="c-card__title">
+                                            <a href="#">Another Card</a>
+                                        </p>
+                                        <p class="c-card__meta">March 10, 2024</p>
+                                    </div>
+                                    <p>Layout primitives make it easy to create consistent, flexible designs without complex CSS.</p>
+                                    <div class="c-card__footer">
+                                        <button class="c-button">Learn More</button>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <!-- Forms ---->
+                <section id="forms">
+                    <div class="u-mb-m">
+                        <h4>Form Components</h4>
+                        <p>Accessible form components with brutal styling that work seamlessly with layout primitives.</p>
+                    </div>
+                    <section class="stack stack--loose | u-padi-m">
+                        <div>
+                            <h6>Basic Form Elements</h6>
+                            <form class="c-form | stack">
+                                <div class="c-field | stack stack--tight">
+                                    <label class="c-label c-label--required" for="name">Name</label>
+                                    <input class="c-input"
+                                           type="text"
+                                           id="name"
+                                           name="name"
+                                           placeholder="Enter your name">
+                                </div>
+                                <div class="c-field | stack stack--tight">
+                                    <label class="c-label" for="email">Email</label>
+                                    <input class="c-input"
+                                           type="email"
+                                           id="email"
+                                           name="email"
+                                           placeholder="your@email.com">
+                                </div>
+                                <div class="c-field | stack stack--tight">
+                                    <label class="c-label" for="message">Message</label>
+                                    <textarea class="c-textarea"
+                                              id="message"
+                                              name="message"
+                                              placeholder="Tell us about your project..."></textarea>
+                                </div>
+                                <div class="c-field | stack stack--tight">
+                                    <label class="c-label" for="priority">Priority</label>
+                                    <select class="c-select" id="priority" name="priority">
+                                        <option>Select priority</option>
+                                        <option>Low</option>
+                                        <option>Medium</option>
+                                        <option>High</option>
+                                        <option>Urgent</option>
+                                    </select>
+                                </div>
+                                <div class="cluster | u-padi-s u-mb-s">
+                                    <button class="c-button c-button--small" type="submit">Send Message</button>
+                                    <button class="c-button c-button--secondary c-button--small" type="reset">Reset</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div>
+                            <h6>Input Sizes & Validation States</h6>
+                            <div class="grid grid--auto | u-bg-secondary u-pad-m">
+                                <div class="stack">
+                                    <div class="c-field | stack stack--tight">
+                                        <label class="c-label" for="input-small">Small Input</label>
+                                        <input class="c-input c-input--small"
+                                               type="text"
+                                               id="input-small"
+                                               placeholder="Small input">
+                                    </div>
+                                    <div class="c-field | stack stack--tight">
+                                        <label class="c-label" for="input-default">Default Input</label>
+                                        <input class="c-input"
+                                               type="text"
+                                               id="input-default"
+                                               placeholder="Default input">
+                                    </div>
+                                    <div class="c-field | stack stack--tight">
+                                        <label class="c-label" for="input-large">Large Input</label>
+                                        <input class="c-input c-input--large"
+                                               type="text"
+                                               id="input-large"
+                                               placeholder="Large input">
+                                    </div>
+                                </div>
+                                <div class="stack">
+                                    <div class="c-field c-field--error | stack stack--tight">
+                                        <label class="c-label" for="input-error">Error State</label>
+                                        <input class="c-input" type="text" id="input-error" value="Invalid input">
+                                        <div class="c-field-message">This field is required</div>
+                                    </div>
+                                    <div class="c-field c-field--success | stack stack--tight">
+                                        <label class="c-label" for="input-success">Success State</label>
+                                        <input class="c-input" type="text" id="input-success" value="Valid input">
+                                        <div class="c-field-message">Looks good!</div>
+                                    </div>
+                                    <div class="c-field c-field--warning | stack stack--tight">
+                                        <label class="c-label" for="input-warning">Warning State</label>
+                                        <input class="c-input"
+                                               type="text"
+                                               id="input-warning"
+                                               value="Needs attention">
+                                        <div class="c-field-message">
+                                            <ul class="u-mt-0 u-padi-s">
+                                                <li>Some warning about this input</li>
+                                                <li>This is another warning</li>
+                                                <li>A final warning about something else that spans across multiple lines i guess</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h6>Checkboxes & Radio Buttons</h6>
+                            <div class="grid grid--2 | u-bg-secondary u-pad-m">
+                                <div class="stack">
+                                    <p class="u-text-muted">Checkboxes</p>
+                                    <div class="c-field c-field--checkbox | cluster">
+                                        <input class="c-checkbox"
+                                               type="checkbox"
+                                               id="checkbox1"
+                                               name="options"
+                                               checked>
+                                        <label class="c-label" for="checkbox1">Option 1 (checked)</label>
+                                    </div>
+                                    <div class="c-field c-field--checkbox | cluster">
+                                        <input class="c-checkbox" type="checkbox" id="checkbox2" name="options">
+                                        <label class="c-label" for="checkbox2">Option 2</label>
+                                    </div>
+                                    <div class="c-field c-field--checkbox | cluster">
+                                        <input class="c-checkbox"
+                                               type="checkbox"
+                                               id="checkbox3"
+                                               name="options"
+                                               disabled>
+                                        <label class="c-label | u-text-muted" for="checkbox3">Option 3 (disabled)</label>
+                                    </div>
+                                </div>
+                                <div class="stack">
+                                    <p class="u-text-muted">Radio Buttons</p>
+                                    <div class="c-field c-field--radio | cluster">
+                                        <input class="c-radio"
+                                               type="radio"
+                                               id="radio1"
+                                               name="choice"
+                                               value="1"
+                                               checked>
+                                        <label class="c-label" for="radio1">Choice 1 (selected)</label>
+                                    </div>
+                                    <div class="c-field c-field--radio | cluster">
+                                        <input class="c-radio" type="radio" id="radio2" name="choice" value="2">
+                                        <label class="c-label" for="radio2">Choice 2</label>
+                                    </div>
+                                    <div class="c-field c-field--radio | cluster">
+                                        <input class="c-radio"
+                                               type="radio"
+                                               id="radio3"
+                                               name="choice"
+                                               value="3"
+                                               disabled>
+                                        <label class="c-label | u-text-muted" for="radio3">Choice 3 (disabled)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h6>Advanced Form Layouts</h6>
+                            <div class="u-bg-secondary u-pad-m">
+                                <fieldset class="c-fieldset">
+                                    <legend class="c-legend">User Information</legend>
+                                    <div class="stack">
+                                        <div class="grid grid--2">
+                                            <div class="c-field | stack stack--tight">
+                                                <label class="c-label" for="first-name">First Name</label>
+                                                <input class="c-input" type="text" id="first-name" placeholder="John">
+                                            </div>
+                                            <div class="c-field | stack stack--tight">
+                                                <label class="c-label" for="last-name">Last Name</label>
+                                                <input class="c-input" type="text" id="last-name" placeholder="Doe">
+                                            </div>
+                                        </div>
+                                        <div class="c-field | cluster">
+                                            <label class="c-label" for="username">Username</label>
+                                            <input class="c-input" type="text" id="username" placeholder="johndoe">
+                                        </div>
+                                        <div class="c-field | stack stack--tight">
+                                            <label class="c-label" for="avatar">Profile Picture</label>
+                                            <div class="c-file-input">
+                                                <input type="file" id="avatar" name="avatar" accept="image/*">
+                                                <label class="c-file-input__label" for="avatar">
+                                                    <span class="c-file-input__text">Choose File</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="cluster | u-mt-m" style="--row-justify-content: flex-end;">
+                                    <button class="c-button c-button--secondary">Cancel</button>
+                                    <button class="c-button">Save Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h6>Input Groups</h6>
+                            <div class="u-bg-secondary u-pad-m">
+                                <div class="c-field | stack stack--tight">
+                                    <label class="c-label" for="search">Search with Action</label>
+                                    <div class="c-input-group">
+                                        <input class="c-input"
+                                               type="text"
+                                               id="search"
+                                               placeholder="Search snippets...">
+                                        <button class="c-button" type="button">Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <!-- Typography -->
+                <section id="typography">
+                    <div class="u-mb-m">
+                        <h4>Typography</h4>
+                        <p>Fluid typography that scales beautifully across all device sizes.</p>
+                    </div>
+                    <section class="stack stack--tight">
+                        <div>
+                            <h1>Heading 1</h1>
+                            <h2>Heading 2</h2>
+                            <h3>Heading 3</h3>
+                            <h4>Heading 4</h4>
+                            <h5>Heading 5</h5>
+                            <h6>Heading 6</h6>
+                        </div>
+                        <div class="flow">
+                            <p>
+                                Body text using DM Sans with optimal line length and spacing. This paragraph demonstrates the comfortable reading experience with proper typography tokens. <a href="#">Links are styled</a> with semantic color tokens and <strong>strong text</strong> uses the heading color for better contrast.
+                            </p>
+                            <p>
+                                <small>Small text for captions and secondary information.</small>
+                            </p>
+                        </div>
+                    </section>
+                </section>
+            </div>
+        </main>
+        <!-- Footer -->
+        <footer class="c-footer">
+            <div class="c-footer__content | wrapper | u-pad-m">
+                <p class="c-footer__copyright">
+                    Made with <3 with CutMyCode
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>

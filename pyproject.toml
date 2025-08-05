@@ -1,0 +1,18 @@
+[project]
+name = "cutmycode"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "django>=5.2.4",
+    "django-cotton>=2.1.3",
+    "django-environ>=0.12.0",
+    "djangorestframework>=3.16.0",
+    "pygments>=2.19.2",
+]
+
+[dependency-groups]
+dev = [
+    "django-debug-toolbar>=6.0.0",
+]

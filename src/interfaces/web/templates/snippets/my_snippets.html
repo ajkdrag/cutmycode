@@ -1,0 +1,18 @@
+{% extends 'dashboard.html' %}
+{% block dashboard_content %}
+    <c-dashboard-aside active_tab="my_snippets" />
+    <div class="stack">
+        <div class="spaced-row">
+            <h4>Recent Snippets</h4>
+            <a href="{% url 'snippet_create' %}"
+               class="c-button c-button--primary c-button--large">Create Snippet</a>
+        </div>
+        {% if snippets %}
+            <c-snippets :snippets="snippets" />
+        {% else %}
+            <div class="box | u-padding-l">
+                <p class="u-text-muted | u-text-center">You haven't created any snippets yet.</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

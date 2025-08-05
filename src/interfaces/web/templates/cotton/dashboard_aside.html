@@ -1,0 +1,9 @@
+<c-vars active_tab />
+<aside class="stack | u-gap-2xs">
+    <a href="{% url 'my_snippets' %}"
+       class="c-button {% if active_tab != 'my_snippets' %}c-button--tertiary{% endif %}">Snippets</a>
+    <a href="#"
+       class="c-button {% if active_tab != 'collections' %}c-button--tertiary{% endif %}">Collections</a>
+    <a href="{% url 'edit_profile' %}"
+       class="c-button {% if active_tab != 'profile' %}c-button--tertiary{% endif %}">Profile</a>
+</aside>
