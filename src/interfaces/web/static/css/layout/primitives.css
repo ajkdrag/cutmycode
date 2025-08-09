@@ -20,6 +20,11 @@
     gap: var(--space-m);
   }
 
+  .center {
+    display: grid;
+    place-items: center;
+  }
+
   .spaced-row {
     display: flex;
     flex-wrap: wrap;

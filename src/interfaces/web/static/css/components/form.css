@@ -22,19 +22,12 @@
   }
 
   /* Input Base Styles */
-  input,
-  textarea {
-    --input-border: var(--border-muted);
-    --input-bg: var(--color-bg-primary);
-    --input-text-color: var(--color-text-body);
-    --input-shadow: var(--color-shadow-secondary);
-    --input-padding-block: var(--space-2xs);
-    --input-padding-inline: var(--space-s);
-
-    border: var(--input-border);
-    background-color: var(--input-bg);
-    padding: var(--input-padding-block) var(--input-padding-inline);
-    color: var(--input-text-color);
+  .c-input,
+  .c-textarea {
+    border: var(--border-muted);
+    background-color: var(--color-bg-primary);
+    padding: var(--space-2xs) var(--space-xs);
+    color: var(--color-text-body);
     font-size: var(--fs-body);
     line-height: var(--lh-small);
     transition: none;
@@ -42,40 +35,37 @@
     width: 100%;
   }
 
-  input:focus,
-  textarea:focus {
+  .c-input:focus,
+  .c-textarea:focus {
     outline: none;
-    border-color: var(--color-text-heading);
-    box-shadow: 2px 2px 0 var(--input-shadow);
+    border-color: var(--color-text-body);
+    box-shadow: 1px 1px 0 var(--color-text-body);
   }
 
-  input::placeholder,
-  textarea::placeholder {
+  .c-input::placeholder,
+  .c-textarea::placeholder {
     color: var(--color-text-muted);
     opacity: 0.8;
   }
 
   /* Textarea specific */
-  textarea {
+  .c-textarea {
     resize: vertical;
     min-height: 4rem;
     font-family: var(--ff-body);
   }
 
-  /* Input Sizes */
-  .c-input--small,
-  .c-textarea--small {
-    --input-padding-block: var(--space-2xs);
-    --input-padding-inline: var(--space-xs);
-    font-size: var(--fs-small);
+  .c-select {
+    font-size: var(--fs-body);
+    padding-inline: var(--space-xs);
+    padding-block: var(--space-3xs);
+    border: var(--border-muted);
+    border-radius: 0;
+    color: var(--color-text-body);
+    align-self: stretch;
   }
 
-  .c-input--large,
-  .c-textarea--large {
-    /* --input-padding-block: var(--space-xs); */
-    /* --input-padding-inline: var(--space-m); */
-    font-size: var(--fs-h5);
-  }
+  /************************************/
 
   /* Validation States */
   .c-field--error {

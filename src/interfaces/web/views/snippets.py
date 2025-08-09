@@ -3,23 +3,31 @@ from django.contrib.auth.views import redirect_to_login
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render
 
-from src.application.dtos import SnippetDetailDTO, ListSnippetsDTO
+from src.application.dtos import ListSnippetsDTO, SnippetDetailDTO
 from src.application.security import Principal
 from src.application.usecases.snippets import SnippetsUseCase
 from src.application.usecases.social import SocialUseCase
 from src.data.orm.repositories.comment import DjangoCommentRepository
 from src.data.orm.repositories.like import DjangolikeRepository
+from src.data.orm.repositories.share import DjangoSharedSnippetRepository
 from src.data.orm.repositories.snippet import DjangoSnippetRepository
 from src.data.orm.repositories.user import DjangoUserRepository
-from src.domain.policies import CommentPolicy, LikePolicy, SnippetPolicy
+from src.domain.policies import (
+    CommentPolicy,
+    LikePolicy,
+    SharePolicy,
+    SnippetPolicy,
+)
 from src.interfaces.web.forms.snippets import SnippetCreationForm
 from src.interfaces.web.forms.social import CommentForm
 
 snippet_repo = DjangoSnippetRepository()
 user_repo = DjangoUserRepository()
 comment_repo = DjangoCommentRepository()
+shared_snippet_repo = DjangoSharedSnippetRepository()
 like_repo = DjangolikeRepository()
 snippet_policy = SnippetPolicy()
+share_policy = SharePolicy()
 
 snippets_uc = SnippetsUseCase(
     snippet_repo=snippet_repo,
@@ -32,7 +40,9 @@ social_uc = SocialUseCase(
     comment_repo=comment_repo,
     like_repo=like_repo,
     snippet_repo=snippet_repo,
+    shared_snippet_repo=shared_snippet_repo,
     comment_policy=CommentPolicy(),
+    share_policy=SharePolicy(),
     like_policy=LikePolicy(),
 )
 

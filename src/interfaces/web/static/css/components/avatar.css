@@ -1,0 +1,12 @@
+@layer components {
+  .c-avatar {
+    display: inline-block;
+    color: var(--color-text-muted);
+    transition: transform 0.2s ease;
+  }
+  .c-avatar:hover {
+    color: var(--color-text-body);
+    cursor: pointer;
+    background: none;
+  }
+}

@@ -7,6 +7,7 @@ class CommentForm(forms.Form):
             attrs={
                 "rows": 3,
                 "placeholder": "Share your thoughts...",
+                "class": "c-textarea",
             }
         ),
         label="",

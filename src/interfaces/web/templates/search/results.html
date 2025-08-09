@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Search Results{% endblock %}
+{% block content %}
+    <div class="wrapper | u-max-inline-sz-l u-margin-start-l">
+        <div class="stack">
+            <div class="search-results-header">
+                <p class="u-text-muted">{{ results_count }} result{{ results_count|pluralize }} found</p>
+            </div>
+            {% if snippets %}
+                <c-snippets :snippets="snippets" />
+            {% else %}
+                <div class="no-results | center">
+                    <p>No snippets found for your search.</p>
+                    <p class="u-text-muted">
+                        Try adjusting your search terms or browse all snippets on the <a href="{% url 'landing_page' %}">home page</a>.
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+

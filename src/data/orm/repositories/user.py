@@ -11,6 +11,9 @@ class DjangoUserRepository(UserRepository):
             return AnonymousUser()
         return User(
             id=user_model.id,
+            first_name=user_model.first_name,
+            last_name=user_model.last_name,
+            about=user_model.about,
             username=user_model.username,
             email=user_model.email,
             is_active=user_model.is_active,

@@ -39,12 +39,12 @@
   }
 
   /* Accessible expanded link technique */
-  .c-card__title::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    cursor: pointer;
-  }
+  /* .c-card__title::after { */
+  /*   content: ""; */
+  /*   position: absolute; */
+  /*   inset: 0; */
+  /*   cursor: pointer; */
+  /* } */
 
   .c-card__meta {
     font-size: var(--fs-xs);

@@ -3,16 +3,12 @@
     <div class="c-header__content | wrapper | u-max-inline-sz-l">
         <nav class="c-nav | spaced-row">
             <a href="{% url 'landing_page' %}" class="c-logo">{{ logo }}</a>
-            <div>
-                <form method="get" class="cluster | u-gap-0">
-                    <input type="text"
-                           name="query"
-                           placeholder="Search snippets..."
-                           value="{{ search_form.query.value|default:'' }}"
-                           class="c-search__input">
-                    <c-select name="language" :choices="language_choices" :selected="search_form.language.value" />
-                </form>
-            </div>
+            <form method="get"
+                  action="{% url 'search' %}"
+                  class="c-search | cluster | u-gap-0">
+                {{ search_form.query }}
+                {{ search_form.language }}
+            </form>
             <ul class="c-nav__list | cluster | u-align-items-center" role="list">
                 {% if user.is_authenticated %}
                     <li class="c-nav__item">
@@ -22,10 +18,10 @@
                         {% csrf_token %}
                         <button type="submit" class="c-button c-button--tertiary">Logout</button>
                     </form>
+                    <a class="c-button" href="{% url 'snippet_create' %}">Create</a>
                 {% else %}
                     <a class="c-button" href="{% url 'login' %}">Login</a>
                 {% endif %}
-                <a class="c-button" href="{% url 'snippet_create' %}">Create</a>
             </ul>
         </nav>
     </div>

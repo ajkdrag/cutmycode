@@ -9,9 +9,8 @@
                 {% csrf_token %}
                 <c-form-errors :errors="form.non_field_errors" />
                 <c-form-field :id="form.title.id_for_label" :label="form.title.label" :field="form.title" :errors="form.title.errors" />
-                <c-form-field :id="form.code.id_for_label" :label="form.code.label" :field="form.code" :errors="form.code.errors" />
+                <c-editor :form="form" />
                 <c-form-field :id="form.description.id_for_label" :label="form.description.label" :field="form.description" :errors="form.description.errors" />
-                <c-form-field :id="form.language.id_for_label" :label="form.language.label" :field="form.language" :errors="form.language.errors" />
                 <button class="c-button c-button--primary c-button--large" type="submit">Save Changes</button>
             </div>
         </form>

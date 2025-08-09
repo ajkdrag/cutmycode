@@ -2,14 +2,14 @@
 <article class="c-card | box | u-padding-xs">
     <div class="stack | u-gap-s u-min-block-sz-100">
         <header class="sidebar | u-gap-2xs">
-            <ion-icon size="large" name="person-circle"></ion-icon>
+            <c-avatar :user="snippet.author" />
             <div class="stack | u-gap-0">
                 <p class="c-card__title">{{ snippet.title }}</p>
                 <p class="c-card__meta">by {{ snippet.author.username }}, {{ snippet.created_at | timesince }} ago</p>
             </div>
         </header>
-        {% if snippet.description %}<p class="u-text-small">{{ snippet.description | truncatechars:30 }}</p>{% endif %}
-        <c-code-block :code="snippet.code" language="{{ snippet.language }}" truncate="100" class_extras="u-flex-grow u-pos-relative" />
+        {% if snippet.description %}<p class="u-text-small">{{ snippet.description | truncatechars:100 }}</p>{% endif %}
+        <c-code-block :code="snippet.code" :language="snippet.language" truncate="100" class_extras="u-flex-grow u-pos-relative" />
         <footer class="spaced-row | u-pos-relative">
             <div class="cluster | u-gap-s u-align-items-center">
                 <c-like-button :snippet_id="snippet.id" :like_count="snippet.metadata.stats.like_count" :is_liked="snippet.metadata.interactions.liked" />
@@ -17,7 +17,6 @@
                     <ion-icon name="chatbubble-outline"></ion-icon>
                     <span class="u-text-small u-text-muted">{{ snippet.metadata.stats.comment_count }}</span>
                 </div>
-                <button class="c-card__action" aria-label="Share post">↗</button>
                 <button class="c-card__action" aria-label="Bookmark post">🔖</button>
             </div>
             <a href="{% url 'snippet_detail' snippet.id %}" class="c-button">Read More</a>

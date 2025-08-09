@@ -7,6 +7,10 @@
   align-items: center;
 }
 
+.u-align-items-start {
+  align-items: start;
+}
+
 .u-justify-content-end {
   justify-content: flex-end;
 }

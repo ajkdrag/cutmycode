@@ -7,22 +7,20 @@
                 <div class="stack | u-gap-2xs">
                     <h4>{{ snippet.title }}</h4>
                     <p class="u-text-small u-text-muted">
-                        Posted by {{ snippet.author.username }}, {{ snippet.created_at | timesince }} ago
+                        Posted by <a href="{% url 'user_detail' snippet.author.id %}"
+    class="u-no-underline">{{ snippet.author.username }}</a>, {{ snippet.created_at | timesince }} ago
                     </p>
                 </div>
                 {% if snippet.description %}<p>{{ snippet.description }}</p>{% endif %}
                 <section class="stack | u-gap-xs">
-                    <c-code-block :code="snippet.code" language="{{ snippet.language }}" />
+                    <c-code-block :code="snippet.code" :language="snippet.language" />
                     <div class="cluster | u-gap-s u-justify-content-end u-align-items-center">
                         <c-like-button :snippet_id="snippet.id" :like_count="snippet.metadata.stats.like_count" :is_liked="snippet.metadata.interactions.liked" size="large" />
+                        <c-share-button :snippet_id="snippet.id" size="large" />
                         {% if can_edit %}
                             <a href="{% url 'snippet_edit' snippet.id %}"
                                class="c-button c-button--secondary">Edit</a>
                         {% endif %}
-                        <form action="#" method="post">
-                            {% csrf_token %}
-                            <button class="c-button" type="submit">Share</button>
-                        </form>
                     </div>
                 </section>
                 <c-comment-section :comments="comments" />

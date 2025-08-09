@@ -1,30 +1,25 @@
+from src.data.orm.repositories.user import DjangoUserRepository
 from src.domain.repositories.snippet import SnippetRepository
 from src.data.orm.models import Snippet as SnippetModel
-from src.domain.entities import Snippet, User
+from src.domain.entities import Snippet
 from src.domain.value_objects import SearchQuery, SearchResult
 from typing import List
-from django.db.models import Count, Q
+from django.db.models import Q
+from src.domain.constants import Language
 
 
 class DjangoSnippetRepository(SnippetRepository):
     @staticmethod
     def _from_orm(snippet_model: SnippetModel) -> Snippet:
         author_model = snippet_model.author
-        author = User(
-            id=author_model.id,
-            username=author_model.username,
-            email=author_model.email,
-            is_active=author_model.is_active,
-            created_at=author_model.created_at,
-            updated_at=author_model.updated_at,
-        )
+        author = DjangoUserRepository._from_orm(author_model)
 
         return Snippet(
             id=snippet_model.id,
             title=snippet_model.title,
             code=snippet_model.code,
             description=snippet_model.description,
-            language=snippet_model.language,
+            language=Language[snippet_model.language],
             is_public=snippet_model.is_public,
             author=author,
             created_at=snippet_model.created_at,
@@ -64,8 +59,15 @@ class DjangoSnippetRepository(SnippetRepository):
         snippets = SnippetModel.objects.filter(is_public=True)
         return [self._from_orm(snippet_model) for snippet_model in snippets]
 
-    def get_user_snippets(self, user_id: int) -> List[Snippet]:
-        snippets = SnippetModel.objects.filter(author_id=user_id)
+    def get_user_snippets(
+        self, user_id: int, only_public: bool = False
+    ) -> List[Snippet]:
+        snippets = SnippetModel.objects.filter(
+            author_id=user_id,
+        )
+        if only_public:
+            snippets = snippets.filter(is_public=True)
+
         return [self._from_orm(snippet_model) for snippet_model in snippets]
 
     def get_user_private_snippets(self, user_id: int) -> List[Snippet]:
@@ -106,16 +108,9 @@ class DjangoSnippetRepository(SnippetRepository):
             queryset = queryset.filter(search_q)
 
         if search_query.language:
-            queryset = queryset.filter(language=search_query.language)
+            queryset = queryset.filter(language=search_query.language.name)
 
-        return (
-            queryset.annotate(
-                like_count=Count("likes", distinct=True),
-                comment_count=Count("comments", distinct=True),
-            )
-            .select_related("author")
-            .order_by("-created_at")
-        )
+        return queryset.order_by("-created_at")
 
     def search_across_public_snippets(self, search_query: SearchQuery) -> SearchResult:
         queryset = self._build_search_queryset(

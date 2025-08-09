@@ -1,0 +1,13 @@
+@layer components {
+  .c-editor .CodeMirror {
+    border: var(--border-muted);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-body);
+    font-family: var(--ff-mono);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    transition: none;
+    border-radius: 0;
+    width: 100%;
+  }
+}

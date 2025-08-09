@@ -1,6 +1,4 @@
 from typing import List
-from dataclasses import asdict
-
 from src.application.dtos import (
     ListSnippetsDTO,
     SearchResultsDTO,

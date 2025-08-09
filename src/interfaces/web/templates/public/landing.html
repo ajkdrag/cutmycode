@@ -1,21 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="wrapper | u-max-inline-sz-l">
+    {% if not user.is_authenticated %}<c-hero />{% endif %}
+    <div class="wrapper | u-max-inline-sz-l u-margin-start-l">
         <div class="stack">
-            {% if search_performed %}
-                <div class="search-results">
-                    <p>Search Results for "{{ query }}"</p>
-                </div>
-            {% endif %}
             {% if snippets %}
                 <c-snippets :snippets="snippets" />
-            {% elif search_performed %}
-                <div class="no-results">
-                    <p>No snippets found for your search.</p>
-                </div>
             {% else %}
-                <div class="no-snippets">
+                <div class="no-snippets | center">
                     <p>No snippets available yet.</p>
+                    <p class="u-text-muted">
+                        Be the first to <a href="{% url 'snippet_create' %}">create a snippet</a>!
+                    </p>
                 </div>
             {% endif %}
         </div>

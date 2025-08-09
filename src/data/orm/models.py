@@ -12,6 +12,8 @@ class BaseModel(models.Model):
 
 
 class CustomUser(AbstractUser, BaseModel):
+    about = models.TextField(blank=True)  # optional
+
     def __str__(self):
         return self.username
 
@@ -36,6 +38,22 @@ class Snippet(BaseModel):
 
     def __str__(self):
         return self.title
+
+
+class SharedSnippet(BaseModel):
+    snippet = models.ForeignKey(
+        Snippet,
+        on_delete=models.CASCADE,
+        related_name="shared_snippets",
+    )
+    token = models.CharField(max_length=255, unique=True, db_index=True)
+    expires_at = models.DateTimeField()
+    is_active = models.BooleanField(default=True)
+    created_by = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name="shared_snippets",
+    )
 
 
 class Comment(BaseModel):

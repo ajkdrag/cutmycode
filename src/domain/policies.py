@@ -62,3 +62,21 @@ class LikePolicy(Policy):
         if snippet.is_public:
             return True
         return user.id == snippet.author.id
+
+
+class SharePolicy(Policy):
+    def can_share(self, user: User, snippet: Snippet) -> bool:
+        if _is_anon(user):
+            return False
+
+        if snippet.is_public:
+            return True
+        return user.id == snippet.author.id
+
+
+class UserInteractionPolicy:
+    def can_view_private(self, user: User, user_id: int) -> bool:
+        if _is_anon(user):
+            return False
+
+        return user.id == user_id

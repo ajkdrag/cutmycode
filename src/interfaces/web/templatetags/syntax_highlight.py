@@ -16,3 +16,9 @@ def syntax_highlight(value, language="python", autoescape=True):
         return mark_safe(result)
     except Exception:
         return value
+
+
+@register.filter
+def get_enum_display(enum_obj):
+    """Convert enum object to its display value"""
+    return enum_obj.value if hasattr(enum_obj, "value") else str(enum_obj)

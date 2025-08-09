@@ -5,14 +5,15 @@ from src.domain.value_objects import SearchQuery
 
 class SearchForm(forms.Form):
     query = forms.CharField(
-        max_length=255,
+        max_length=120,
         required=False,
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Search snippets...",
-                "class": "search-input",
+                "class": "c-input",
             }
         ),
+        label="",
     )
 
     language = forms.ChoiceField(
@@ -20,18 +21,25 @@ class SearchForm(forms.Form):
         required=False,
         widget=forms.Select(
             attrs={
-                "class": "language-filter",
+                "class": "c-select",
             }
         ),
+        label="",
     )
 
     def clean_query(self):
         query = self.cleaned_data.get("query", "").strip()
         return query
 
+    def clean_language(self):
+        language = self.cleaned_data.get("language", "")
+        if language:
+            return Language[language]
+        return None
+
     def get_search_query(self) -> SearchQuery:
+        self.full_clean()
         return SearchQuery(
-            query=self.cleaned_data.get("query", "").strip(),
+            query=self.cleaned_data.get("query", ""),
             language=self.cleaned_data.get("language", ""),
         )
-

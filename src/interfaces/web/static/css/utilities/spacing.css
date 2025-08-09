@@ -85,6 +85,14 @@
     padding-inline: var(--space-l);
   }
 
+  .u-padding-block-s {
+    padding-block: var(--space-s);
+  }
+
+  .u-neg-margin-start-l {
+    margin-block-start: calc(var(--space-l) * -1);
+  }
+
   /* Gap utilities */
   .u-gap-0 {
     gap: 0;

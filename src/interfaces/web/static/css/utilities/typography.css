@@ -10,6 +10,14 @@
     text-align: right;
   }
 
+  /* decorations */
+  .u-text-underline {
+    text-decoration: underline;
+  }
+  .u-no-underline {
+    text-decoration: none;
+  }
+
   /* Font sizes */
   .u-text-small {
     font-size: var(--fs-small);
@@ -41,5 +49,9 @@
 
   .u-text-success {
     color: var(--color-success);
+  }
+
+  .u-ff-mono {
+    font-family: var(--ff-mono);
   }
 }

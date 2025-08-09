@@ -1,7 +1,7 @@
-from src.domain.constants import Language
+from src.interfaces.web.forms.search import SearchForm
 
 
-def language_choices(request):
+def search_form(request):
     return {
-        "language_choices": [("", "All Languages")] + Language.choices(),
+        "search_form": SearchForm(),
     }

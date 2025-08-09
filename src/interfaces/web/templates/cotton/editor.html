@@ -1,0 +1,9 @@
+<c-vars form />
+<div x-data="editor()" class="c-editor | stack | u-gap-s">
+    <div class="c-field | stack | u-gap-2xs">
+        <c-form-field :id="form.language.id_for_label" :label="form.language.label" :field="form.language" :errors="form.language.errors" />
+    </div>
+    <div class="c-field | stack | u-gap-2xs">
+        <c-form-field :id="form.code.id_for_label" :label="form.code.label" :field="form.code" :errors="form.code.errors" />
+    </div>
+</div>

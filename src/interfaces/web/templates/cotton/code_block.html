@@ -3,7 +3,9 @@
 <section x-data="{ copied: false }"
          class="stack | u-bg-secondary u-gap-0 {{ class_extras }}">
     <header class="spaced-row">
-        <p class="u-padding-inline-2xs u-text-small u-text-muted u-border-thin u-border-muted">{{ language }}</p>
+        <p class="u-padding-inline-2xs u-text-small u-text-muted u-border-thin u-border-muted">
+            {{ language | get_enum_display }}
+        </p>
         <button type="button"
                 @click.stop="$copy()"
                 class="cluster | u-align-items-center">
