@@ -35,7 +35,6 @@ class SnippetCreationForm(forms.Form):
     )
     language = forms.ChoiceField(
         choices=Language.choices(),
-        initial=Language.PYTHON.name,
         widget=forms.Select(
             attrs={
                 "class": "c-select",
@@ -43,3 +42,9 @@ class SnippetCreationForm(forms.Form):
             }
         ),
     )
+
+    def clean_language(self):
+        language = self.cleaned_data.get("language", "")
+        if language:
+            return Language[language]
+        return None

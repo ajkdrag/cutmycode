@@ -1,134 +1,55 @@
-from src.data.orm.repositories.user import DjangoUserRepository
-from src.domain.repositories.snippet import SnippetRepository
-from src.data.orm.models import Snippet as SnippetModel
-from src.domain.entities import Snippet
-from src.domain.value_objects import SearchQuery, SearchResult
-from typing import List
-from django.db.models import Q
+from src.domain.types import SnippetId
+from src.data.orm.models import Snippet as SnippetM
+from src.domain.entities import Snippet, SnippetDraft
+from src.domain.value_objects import AuthorRef
 from src.domain.constants import Language
 
 
-class DjangoSnippetRepository(SnippetRepository):
+class DjangoSnippetRepository:
     @staticmethod
-    def _from_orm(snippet_model: SnippetModel) -> Snippet:
-        author_model = snippet_model.author
-        author = DjangoUserRepository._from_orm(author_model)
-
+    def _from_orm(snippet_model: SnippetM) -> Snippet:
         return Snippet(
-            id=snippet_model.id,
+            id=SnippetId(snippet_model.id),
+            author=AuthorRef(
+                id=snippet_model.author.id,
+                username=snippet_model.author.username,
+            ),
             title=snippet_model.title,
             code=snippet_model.code,
             description=snippet_model.description,
             language=Language[snippet_model.language],
             is_public=snippet_model.is_public,
-            author=author,
             created_at=snippet_model.created_at,
             updated_at=snippet_model.updated_at,
         )
 
-    def get(self, id: int) -> Snippet:
-        snippet_model = SnippetModel.objects.get(id=id)
-        return self._from_orm(snippet_model)
+    def get(self, snippet_id: SnippetId) -> Snippet | None:
+        try:
+            snippet_model = SnippetM.objects.get(id=snippet_id)
+            return self._from_orm(snippet_model)
+        except SnippetM.DoesNotExist:
+            return None
 
-    def create(self, snippet: Snippet) -> Snippet:
-        snippet_model = SnippetModel(
-            title=snippet.title,
-            code=snippet.code,
-            description=snippet.description,
-            language=snippet.language,
-            is_public=snippet.is_public,
-            author_id=snippet.author.id,
+    def add(self, draft: SnippetDraft) -> Snippet:
+        snippet_model = SnippetM(
+            author_id=draft.author_id,
+            title=draft.title,
+            description=draft.description,
+            code=draft.code,
+            language=draft.language.name,
+            is_public=draft.is_public,
         )
         snippet_model.full_clean()
         snippet_model.save()
-
-    def update(self, snippet: Snippet) -> Snippet:
-        snippet_model = SnippetModel.objects.get(id=snippet.id)
-        snippet_model.title = snippet.title
-        snippet_model.description = snippet.description
-        snippet_model.code = snippet.code
-        snippet_model.language = snippet.language
-        snippet_model.is_public = snippet.is_public
-        snippet_model.full_clean()
-        snippet_model.save()
-
-    def delete(self, id: int) -> bool:
-        pass
-
-    def get_public_snippets(self) -> List[Snippet]:
-        snippets = SnippetModel.objects.filter(is_public=True)
-        return [self._from_orm(snippet_model) for snippet_model in snippets]
-
-    def get_user_snippets(
-        self, user_id: int, only_public: bool = False
-    ) -> List[Snippet]:
-        snippets = SnippetModel.objects.filter(
-            author_id=user_id,
-        )
-        if only_public:
-            snippets = snippets.filter(is_public=True)
-
-        return [self._from_orm(snippet_model) for snippet_model in snippets]
-
-    def get_user_private_snippets(self, user_id: int) -> List[Snippet]:
-        snippets = SnippetModel.objects.filter(
-            author_id=user_id,
-            is_public=False,
-        )
-        return [self._from_orm(snippet_model) for snippet_model in snippets]
-
-    def get_snippet_by_id(self, snippet_id: int) -> Snippet:
-        snippet_model = SnippetModel.objects.get(id=snippet_id)
         return self._from_orm(snippet_model)
 
-    def get_visible_snippets(self, user_id: int) -> List[Snippet]:
-        snippets = SnippetModel.objects.filter(
-            Q(is_public=True) | Q(author_id=user_id),
-        )
-        return [self._from_orm(snippet_model) for snippet_model in snippets]
-
-    def _build_search_queryset(
-        self,
-        search_query: SearchQuery,
-        is_public_only: bool = True,
-        user_id: int = None,
-    ):
-        """Build queryset for search with filters."""
-        queryset = SnippetModel.objects.all()
-
-        if is_public_only:
-            queryset = queryset.filter(is_public=True)
-        elif user_id is not None:
-            queryset = queryset.filter(Q(is_public=True) | Q(author_id=user_id))
-
-        if search_query.query.strip():
-            search_q = Q(title__icontains=search_query.query) | Q(
-                description__icontains=search_query.query
-            )
-            queryset = queryset.filter(search_q)
-
-        if search_query.language:
-            queryset = queryset.filter(language=search_query.language.name)
-
-        return queryset.order_by("-created_at")
-
-    def search_across_public_snippets(self, search_query: SearchQuery) -> SearchResult:
-        queryset = self._build_search_queryset(
-            search_query,
-            is_public_only=True,
-        )
-
-        snippets = [self._from_orm(snippet_model) for snippet_model in queryset]
-
-        return SearchResult(snippets=snippets)
-
-    def search_across_visible_snippets(
-        self, search_query: SearchQuery, user_id: int
-    ) -> SearchResult:
-        """Search all snippets accessible to user (public + own private) with pagination and filters."""
-        queryset = self._build_search_queryset(
-            search_query, is_public_only=False, user_id=user_id
-        )
-        snippets = [self._from_orm(snippet_model) for snippet_model in queryset]
-
-        return SearchResult(snippets=snippets)
+    def update(self, snippet_id: SnippetId, draft: SnippetDraft) -> Snippet:
+        snippet_model = SnippetM.objects.get(id=snippet_id)
+        snippet_model.title = draft.title
+        snippet_model.description = draft.description
+        snippet_model.code = draft.code
+        snippet_model.language = draft.language.name
+        snippet_model.is_public = draft.is_public
+        snippet_model.full_clean()
+        snippet_model.save()
+        return self._from_orm(snippet_model)

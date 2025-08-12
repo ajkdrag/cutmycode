@@ -40,6 +40,6 @@ class SearchForm(forms.Form):
     def get_search_query(self) -> SearchQuery:
         self.full_clean()
         return SearchQuery(
-            query=self.cleaned_data.get("query", ""),
+            text=self.cleaned_data.get("query", ""),
             language=self.cleaned_data.get("language", ""),
         )

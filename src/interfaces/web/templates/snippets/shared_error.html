@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Share Link Error{% endblock %}
+{% block content %}
+    <div class="wrapper">
+        <div class="box | u-shadow">
+            <div class="stack | u-gap-m">
+                <h4>Sorry :(</h4>
+                <div class="stack | u-gap-s">
+                    <p>{{ error }}</p>
+                    <section>
+                        <p class="u-text-muted">This could happen if:</p>
+                        <ul class="u-text-muted">
+                            <li>The share link has expired</li>
+                            <li>The share link was invalid or malformed</li>
+                            <li>The snippet was deleted</li>
+                        </ul>
+                    </section>
+                </div>
+                <div class="cluster | u-gap-s">
+                    <a href="{% url 'landing_page' %}" class="c-button c-button--primary">Go to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

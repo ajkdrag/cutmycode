@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ snippet.title }} (Shared){% endblock %}
+{% block content %}
+    <div class="wrapper">
+        <div class="box | u-shadow">
+            <div class="stack">
+                <div class="stack | u-gap-2xs">
+                    <h4>{{ snippet.title }}</h4>
+                    <div class="stack | u-gap-0">
+                        <p class="u-text-small u-text-muted">
+                            Posted by <a href="{% url 'author_detail' snippet.author.id %}"
+    class="u-no-underline">{{ snippet.author.username }}</a>, {{ snippet.created_at | timesince }} ago
+                        </p>
+                        <p class="u-text-small u-text-muted">
+                            Shared by <a href="{% url 'author_detail' share_link.shared_by.id %}"
+    class="u-no-underline">{{ share_link.shared_by.username }}</a>, expires {{ share_link.expires_at | timeuntil }} from now
+                        </p>
+                    </div>
+                </div>
+                {% if snippet.description %}<p>{{ snippet.description }}</p>{% endif %}
+                <section class="stack | u-gap-xs">
+                    <c-code-block :code="snippet.code" :language="snippet.language" />
+                    <div class="cluster | u-gap-s u-justify-content-end u-align-items-center">
+                        <p class="u-text-small u-text-muted">{{ snippet.code|length }} characters</p>
+                    </div>
+                </section>
+                <section class="box | u-padding-xs">
+                    <p class="u-text-small">
+                        <strong>Note:</strong> To interact (like, comment), please view the <a href="{% url 'snippet_detail' snippet.id %}">original snippet</a>.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

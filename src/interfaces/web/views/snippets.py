@@ -3,61 +3,44 @@ from django.contrib.auth.views import redirect_to_login
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render
 
-from src.application.dtos import ListSnippetsDTO, SnippetDetailDTO
-from src.application.security import Principal
-from src.application.usecases.snippets import SnippetsUseCase
-from src.application.usecases.social import SocialUseCase
-from src.data.orm.repositories.comment import DjangoCommentRepository
-from src.data.orm.repositories.like import DjangolikeRepository
-from src.data.orm.repositories.share import DjangoSharedSnippetRepository
-from src.data.orm.repositories.snippet import DjangoSnippetRepository
-from src.data.orm.repositories.user import DjangoUserRepository
-from src.domain.policies import (
-    CommentPolicy,
-    LikePolicy,
-    SharePolicy,
-    SnippetPolicy,
+from src.application.usecases.get_snippet_details import (
+    GetSnippetDetailsRequest,
+    GetSnippetDetailsResponse,
+)
+from src.application.usecases.create_snippet import (
+    CreateSnippetRequest,
+)
+from src.application.usecases.update_snippet import (
+    UpdateSnippetRequest,
+)
+from src.application.usecases.get_user_snippet_previews import (
+    GetUserSnippetsRequest,
+    GetUserSnippetsResponse,
+)
+from src.application.usecases.create_comment import (
+    CreateCommentRequest,
+    CreateCommentResponse,
+)
+from src.interfaces.container import (
+    get_snippet_details_uc,
+    create_snippet_uc,
+    update_snippet_uc,
+    get_user_snippets_uc,
+    create_comment_uc,
+    get_principal,
+    snippet_policy,
 )
 from src.interfaces.web.forms.snippets import SnippetCreationForm
 from src.interfaces.web.forms.social import CommentForm
 
-snippet_repo = DjangoSnippetRepository()
-user_repo = DjangoUserRepository()
-comment_repo = DjangoCommentRepository()
-shared_snippet_repo = DjangoSharedSnippetRepository()
-like_repo = DjangolikeRepository()
-snippet_policy = SnippetPolicy()
-share_policy = SharePolicy()
-
-snippets_uc = SnippetsUseCase(
-    snippet_repo=snippet_repo,
-    like_repo=like_repo,
-    comment_repo=comment_repo,
-    snippet_policy=SnippetPolicy(),
-)
-
-social_uc = SocialUseCase(
-    comment_repo=comment_repo,
-    like_repo=like_repo,
-    snippet_repo=snippet_repo,
-    shared_snippet_repo=shared_snippet_repo,
-    comment_policy=CommentPolicy(),
-    share_policy=SharePolicy(),
-    like_policy=LikePolicy(),
-)
-
 
 def handle_snippet_detail(request, snippet_id):
-    principal = Principal.anonymous()
-    if request.user.is_authenticated:
-        user = user_repo._from_orm(request.user)
-        principal = Principal.authenticated(user)
-
-    resp: SnippetDetailDTO = snippets_uc.get_snippet_detail(
+    principal = get_principal(request)
+    req = GetSnippetDetailsRequest(
         principal=principal,
         snippet_id=snippet_id,
-        with_meta=True,
     )
+    resp: GetSnippetDetailsResponse = get_snippet_details_uc.execute(req)
     can_edit = snippet_policy.can_edit(principal.user, resp.snippet)
 
     comment_form = CommentForm(
@@ -73,12 +56,16 @@ def handle_snippet_detail(request, snippet_id):
             )
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
-            social_uc.create_comment(
+            req = CreateCommentRequest(
                 principal=principal,
-                body=comment_form.cleaned_data["body"],
                 snippet_id=snippet_id,
+                body=comment_form.cleaned_data["body"],
             )
-            return redirect("snippet_detail", snippet_id=snippet_id)
+            try:
+                resp: CreateCommentResponse = create_comment_uc.execute(req)
+                return redirect("snippet_detail", snippet_id=snippet_id)
+            except Exception as e:
+                comment_form.add_error("body", str(e))
 
     context = {
         "snippet": resp.snippet,
@@ -91,14 +78,11 @@ def handle_snippet_detail(request, snippet_id):
 
 @login_required(login_url="login")
 def handle_create_snippet(request):
-    principal = Principal.anonymous()
-    if request.user.is_authenticated:
-        user = user_repo._from_orm(request.user)
-        principal = Principal.authenticated(user)
+    principal = get_principal(request)
 
     form = SnippetCreationForm(request.POST or None)
     if form.is_valid():
-        snippets_uc.create_snippet(
+        req = CreateSnippetRequest(
             principal=principal,
             title=form.cleaned_data["title"],
             description=form.cleaned_data["description"],
@@ -106,24 +90,23 @@ def handle_create_snippet(request):
             language=form.cleaned_data["language"],
             is_public=True,
         )
+        _ = create_snippet_uc.execute(req)
         return redirect("landing_page")
     return render(request, "snippets/create.html", {"form": form})
 
 
 @login_required(login_url="login")
 def handle_edit_snippet(request, snippet_id):
-    principal = Principal.anonymous()
-    if request.user.is_authenticated:
-        user = user_repo._from_orm(request.user)
-        principal = Principal.authenticated(user)
+    principal = get_principal(request)
 
-    resp: SnippetDetailDTO = snippets_uc.get_snippet_detail(
+    # Get snippet details to check permissions and populate form
+    req = GetSnippetDetailsRequest(
         principal=principal,
         snippet_id=snippet_id,
-        with_meta=False,
     )
+    resp: GetSnippetDetailsResponse = get_snippet_details_uc.execute(req)
 
-    if not snippet_policy.can_edit(user, resp.snippet):
+    if not snippet_policy.can_edit(principal.user, resp.snippet):
         return HttpResponseForbidden("Not allowed to edit this snippet")
 
     form = SnippetCreationForm(
@@ -132,12 +115,12 @@ def handle_edit_snippet(request, snippet_id):
             "title": resp.snippet.title,
             "description": resp.snippet.description,
             "code": resp.snippet.code,
-            "language": resp.snippet.language,
+            "language": resp.snippet.language.name,
         },
     )
 
     if request.method == "POST" and form.is_valid():
-        snippets_uc.update_snippet(
+        update_req = UpdateSnippetRequest(
             principal=principal,
             snippet_id=snippet_id,
             title=form.cleaned_data["title"],
@@ -146,21 +129,20 @@ def handle_edit_snippet(request, snippet_id):
             language=form.cleaned_data["language"],
             is_public=True,
         )
+        _ = update_snippet_uc.execute(update_req)
         return redirect("snippet_detail", snippet_id=snippet_id)
     return render(request, "snippets/edit.html", {"form": form})
 
 
 @login_required(login_url="login")
 def handle_my_snippets(request):
-    principal = Principal.anonymous()
-    if request.user.is_authenticated:
-        user = user_repo._from_orm(request.user)
-        principal = Principal.authenticated(user)
-
-    resp: ListSnippetsDTO = snippets_uc.get_user_snippets(
+    principal = get_principal(request)
+    req = GetUserSnippetsRequest(
         principal=principal,
-        with_meta=True,
+        limit=20,
+        offset=0,
     )
+    resp: GetUserSnippetsResponse = get_user_snippets_uc.execute(req)
     context = {
         "snippets": resp.snippets,
     }

@@ -3,6 +3,7 @@
     <form class="u-margin-start-l" method="post">
         <div class="stack | u-gap-2xs">
             {% csrf_token %}
+            <c-form-errors :errors="comment_form.non_field_errors" />
             <c-form-field :id="comment_form.body.id_for_label" :field="comment_form.body" :errors="comment_form.body.errors" />
             <button class="c-button c-button--tertiary | u-align-self-end" type="submit">Comment</button>
         </div>

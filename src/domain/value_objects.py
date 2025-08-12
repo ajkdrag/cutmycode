@@ -1,8 +1,13 @@
 from dataclasses import dataclass
-from typing import List, Optional
 
 from src.domain.constants import Language
-from src.domain.entities import Snippet
+from src.domain.types import UserId
+
+
+@dataclass(frozen=True)
+class AuthorRef:
+    id: UserId
+    username: str | None = None
 
 
 @dataclass(kw_only=True)
@@ -20,23 +25,13 @@ class UserSnippetInteractions:
 @dataclass(kw_only=True)
 class SnippetMetadata:
     stats: SnippetStats
-    interactions: Optional[UserSnippetInteractions] = None
-
-
-@dataclass(kw_only=True)
-class SnippetWithMetadata(Snippet):
-    metadata: SnippetMetadata
+    interactions: UserSnippetInteractions | None = None
 
 
 @dataclass(kw_only=True)
 class SearchQuery:
-    query: str
-    language: Optional[Language] = None
+    text: str
+    language: Language | None = None
 
     def is_empty(self) -> bool:
-        return not (self.query or self.language)
-
-
-@dataclass(kw_only=True)
-class SearchResult:
-    snippets: List[Snippet]
+        return not (self.text or self.language)

@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %}{{ viewed_user.username }}{% endblock %}
+{% block title %}{{ author.username }}{% endblock %}
 {% block content %}
     <div class="wrapper">
         <div class="box">
             <div class="stack">
-                <h4>{{ viewed_user.username }}</h4>
-                {% if viewed_user.about %}<p>{{ viewed_user.about }}</p>{% endif %}
+                <h4>{{ author.username }}</h4>
+                {% if author.about %}<p>{{ author.about }}</p>{% endif %}
                 <c-snippets :snippets="snippets" />
             </div>
         </div>

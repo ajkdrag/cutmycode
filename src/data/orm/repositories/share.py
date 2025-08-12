@@ -1,61 +1,56 @@
-from typing import Optional
-
-from datetime import datetime
-from src.data.orm.models import SharedSnippet as SharedSnippetModel
-from src.data.orm.repositories.snippet import DjangoSnippetRepository
-from src.data.orm.repositories.user import DjangoUserRepository
-from src.domain.entities import SharedSnippet
-from src.domain.repositories.share import SharedSnippetRepository
+from datetime import datetime, timezone
+from src.domain.types import SnippetId, UserId, SnippetShareLinkId
+from src.data.orm.models import SharedSnippet as SharedSnippetM
+from src.domain.entities import SnippetShareLink, SnippetShareLinkDraft
+from src.domain.value_objects import AuthorRef
 
 
-class DjangoSharedSnippetRepository(SharedSnippetRepository):
+class DjangoSnippetShareLinkRepository:
     @staticmethod
-    def _from_orm(share_model: SharedSnippetModel) -> SharedSnippet:
-        snippet_model = share_model.snippet
-        created_by_model = share_model.created_by
-        snippet = DjangoSnippetRepository._from_orm(snippet_model)
-        created_by = DjangoUserRepository._from_orm(created_by_model)
-
-        return SharedSnippet(
-            id=share_model.id,
-            snippet=snippet,
-            token=share_model.token,
-            expires_at=share_model.expires_at,
-            is_active=share_model.is_active,
-            created_by=created_by,
-            created_at=share_model.created_at,
-            updated_at=share_model.updated_at,
+    def _from_orm(shared_snippet_model: SharedSnippetM) -> SnippetShareLink:
+        return SnippetShareLink(
+            id=SnippetShareLinkId(shared_snippet_model.id),
+            snippet_id=SnippetId(shared_snippet_model.snippet.id),
+            shared_by=AuthorRef(
+                id=UserId(shared_snippet_model.shared_by.id),
+                username=shared_snippet_model.shared_by.username,
+            ),
+            token=shared_snippet_model.token,
+            expires_at=shared_snippet_model.expires_at,
+            is_active=shared_snippet_model.is_active,
+            created_at=shared_snippet_model.created_at,
+            updated_at=shared_snippet_model.updated_at,
         )
 
-    def get(self, id: int) -> SharedSnippet:
-        pass
+    def add(self, draft: SnippetShareLinkDraft) -> SnippetShareLink:
+        import secrets
 
-    def create(self, share: SharedSnippet):
-        share_model = SharedSnippetModel(
-            snippet_id=share.snippet.id,
-            token=share.token,
-            expires_at=share.expires_at,
-            created_by_id=share.created_by.id,
+        token = secrets.token_urlsafe(12)
+
+        shared_snippet_model = SharedSnippetM(
+            snippet_id=draft.snippet_id,
+            shared_by_id=draft.shared_by_id,
+            token=token,
+            expires_at=draft.expires_at,
         )
+        shared_snippet_model.full_clean()
+        shared_snippet_model.save()
+        return self._from_orm(shared_snippet_model)
 
-        share_model.full_clean()
-        share_model.save()
-
-    def update(self, share: SharedSnippet):
-        pass
-
-    def delete(self, id: int) -> bool:
-        pass
-
-    def get_by_token(self, token: str) -> Optional[SharedSnippet]:
+    def get_by_token(self, token: str) -> SnippetShareLink | None:
         try:
-            share_model = SharedSnippetModel.objects.get(token=token)
-            return self._from_orm(share_model)
-        except SharedSnippetModel.DoesNotExist:
+            shared_snippet_model = SharedSnippetM.objects.select_related(
+                "snippet", "shared_by"
+            ).get(token=token)
+            return self._from_orm(shared_snippet_model)
+        except SharedSnippetM.DoesNotExist:
             return None
 
-    def deactivate_expired_shares(self) -> None:
-        # during creation utcnow() was used, so using it here as well
-        SharedSnippetModel.objects.filter(
-            expires_at__lte=datetime.utcnow(),
+    def deactivate_expired(self) -> None:
+        # using utc time here since expires_at was calculated in utc
+        now = datetime.now(tz=timezone.utc)
+        SharedSnippetM.objects.filter(
+            expires_at__lt=now,
+            is_active=True,
         ).update(is_active=False)
+

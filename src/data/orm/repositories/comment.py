@@ -1,80 +1,65 @@
-from typing import List, Dict
-from src.data.orm.repositories.snippet import DjangoSnippetRepository
-from src.data.orm.repositories.user import DjangoUserRepository
-
-from src.domain.repositories.comment import CommentRepository
-from src.data.orm.models import Comment as CommentModel
-from src.domain.entities import Comment
-from django.db.models import Count
+from typing import List
+from src.domain.types import UserId, SnippetId, CommentId
+from src.data.orm.models import Comment as CommentM
+from src.domain.entities import Comment, CommentDraft
+from src.domain.value_objects import AuthorRef
 
 
-class DjangoCommentRepository(CommentRepository):
+class DjangoCommentRepository:
     @staticmethod
-    def _from_orm(comment_model: CommentModel) -> Comment:
-        author_model = comment_model.author
-        snippet_model = comment_model.snippet
-
-        comment_author = DjangoUserRepository._from_orm(author_model)
-        snippet = DjangoSnippetRepository._from_orm(snippet_model)
-
+    def _from_orm(comment_model: CommentM) -> Comment:
         return Comment(
-            id=comment_model.id,
+            id=CommentId(comment_model.id),
+            author=AuthorRef(
+                id=UserId(comment_model.author.id),
+                username=comment_model.author.username,
+            ),
+            snippet_id=SnippetId(comment_model.snippet.id),
             body=comment_model.body,
-            author=comment_author,
-            snippet=snippet,
             is_deleted=comment_model.is_deleted,
             created_at=comment_model.created_at,
             updated_at=comment_model.updated_at,
         )
 
-    def get(self, id: int) -> Comment:
-        comment_model = CommentModel.objects.select_related(
-            "author",
-            "snippet__author",
-        ).get(id=id)
+    def add(self, draft: CommentDraft) -> Comment:
+        comment_model = CommentM(
+            author_id=draft.author_id,
+            snippet_id=draft.snippet_id,
+            body=draft.body,
+        )
+        comment_model.full_clean()
+        comment_model.save()
         return self._from_orm(comment_model)
 
-    def create(self, comment: Comment):
-        comment_model = CommentModel(
+    def get(self, comment_id: CommentId) -> Comment | None:
+        try:
+            comment_model = CommentM.objects.select_related(
+                "author",
+                "snippet",
+            ).get(id=comment_id)
+            return self._from_orm(comment_model)
+        except CommentM.DoesNotExist:
+            return None
+
+    def update(self, comment: Comment) -> None:
+        CommentM.objects.filter(id=comment.id).update(
             body=comment.body,
-            author_id=comment.author.id,
-            snippet_id=comment.snippet.id,
             is_deleted=comment.is_deleted,
         )
-        comment_model.full_clean()
-        comment_model.save()
 
-    def update(self, comment: Comment):
-        comment_model = CommentModel.objects.get(id=comment.id)
-        comment_model.body = comment.body
-        comment_model.is_deleted = comment.is_deleted
-        comment_model.full_clean()
-        comment_model.save()
-
-    def delete(self, id: int) -> bool:
-        try:
-            comment_model = CommentModel.objects.get(id=id)
-            comment_model.delete()
-            return True
-        except CommentModel.DoesNotExist:
-            return False
-
-    def get_comments_for_snippet(self, snippet_id: int) -> List[Comment]:
-        comments = CommentModel.objects.select_related(
-            "author", "snippet__author"
-        ).filter(snippet_id=snippet_id, is_deleted=False)
-        return [self._from_orm(comment_model) for comment_model in comments]
-
-    def get_comment_counts_for_snippets(self, snippet_ids: List[int]) -> Dict[int, int]:
-        """Get comment counts for multiple snippets in bulk."""
-        comment_counts = (
-            CommentModel.objects.filter(snippet_id__in=snippet_ids, is_deleted=False)
-            .values("snippet_id")
-            .annotate(count=Count("id"))
-            .values_list("snippet_id", "count")
+    def list_for_snippet(self, snippet_id: SnippetId) -> List[Comment]:
+        comment_models = (
+            CommentM.objects.select_related("author", "snippet")
+            .filter(snippet_id=snippet_id, is_deleted=False)
+            .order_by("-created_at")
         )
+        return [self._from_orm(comment_model) for comment_model in comment_models]
 
-        # Convert to dict with default 0 for snippets with no comments
-        result = {snippet_id: 0 for snippet_id in snippet_ids}
-        result.update(dict(comment_counts))
-        return result
+    def list_for_user(self, user_id: UserId) -> List[Comment]:
+        comment_models = (
+            CommentM.objects.select_related("author", "snippet")
+            .filter(author_id=user_id, is_deleted=False)
+            .order_by("-created_at")
+        )
+        return [self._from_orm(comment_model) for comment_model in comment_models]
+

@@ -3,6 +3,7 @@ from src.interfaces.web.views.landing import handle_landing
 from src.interfaces.web.views.social import (
     handle_like_snippet,
     handle_share_snippet,
+    handle_share_link_created,
     handle_view_shared_snippet,
 )
 from src.interfaces.web.views.snippets import (
@@ -14,8 +15,9 @@ from src.interfaces.web.views.snippets import (
 from src.interfaces.web.views.users import (
     handle_signup,
     handle_edit_profile,
-    handle_user_detail,
+    handle_author_detail,
 )
+
 from src.interfaces.web.views.search import handle_search
 from django.contrib.auth import views as auth_views
 from src.interfaces.web.forms.users import UserLoginForm
@@ -23,7 +25,6 @@ from src.interfaces.web.forms.users import UserLoginForm
 
 urlpatterns = [
     path("", handle_landing, name="landing_page"),
-    path("results/", handle_search, name="search"),
     path(
         "login/",
         auth_views.LoginView.as_view(authentication_form=UserLoginForm),
@@ -56,12 +57,12 @@ urlpatterns = [
         name="edit_profile",
     ),
     path(
-        "snippets/<int:snippet_id>/like",
+        "snippets/<int:snippet_id>/like/",
         handle_like_snippet,
         name="like_snippet",
     ),
     path(
-        "snippets/<int:snippet_id>/share",
+        "snippets/<int:snippet_id>/share/",
         handle_share_snippet,
         name="share_snippet",
     ),
@@ -71,8 +72,14 @@ urlpatterns = [
         name="view_shared_snippet",
     ),
     path(
-        "users/<int:user_id>/",
-        handle_user_detail,
-        name="user_detail",
+        "users/<int:author_id>/",
+        handle_author_detail,
+        name="author_detail",
     ),
+    path(
+        "share/<str:token>/created/",
+        handle_share_link_created,
+        name="share_link_created",
+    ),
+    path("results/", handle_search, name="search"),
 ]

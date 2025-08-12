@@ -1,33 +1,23 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from src.application.usecases.users import UsersUseCase
-from src.domain.policies import SnippetPolicy, UserInteractionPolicy
-from src.data.orm.repositories.comment import DjangoCommentRepository
-from src.data.orm.repositories.like import DjangolikeRepository
-from src.data.orm.repositories.snippet import DjangoSnippetRepository
-from src.data.orm.repositories.user import DjangoUserRepository
-from src.application.security import Principal
-from src.application.dtos import UserDetailDTO
+from src.application.usecases.get_author_details import (
+    GetAuthorDetailsRequest,
+    GetAuthorDetailsResponse,
+)
+from src.application.usecases.get_author_snippet_previews import (
+    GetAuthorSnippetsRequest,
+    GetAuthorSnippetsResponse,
+)
+from src.interfaces.container import (
+    get_author_details_uc,
+    get_author_snippets_uc,
+    get_principal,
+)
 
 
 from src.interfaces.web.forms.users import (
     UserCreationForm,
     UserEditForm,
-)
-
-
-snippet_repo = DjangoSnippetRepository()
-user_repo = DjangoUserRepository()
-comment_repo = DjangoCommentRepository()
-like_repo = DjangolikeRepository()
-
-users_uc = UsersUseCase(
-    user_repo=user_repo,
-    snippet_repo=snippet_repo,
-    like_repo=like_repo,
-    comment_repo=comment_repo,
-    snippet_policy=SnippetPolicy(),
-    user_interaction_policy=UserInteractionPolicy(),
 )
 
 
@@ -51,19 +41,24 @@ def handle_edit_profile(request):
     return render(request, "users/edit_profile.html", {"form": form})
 
 
-def handle_user_detail(request, user_id):
-    principal = Principal.anonymous()
-    if request.user.is_authenticated:
-        user = user_repo._from_orm(request.user)
-        principal = Principal.authenticated(user)
-
-    resp: UserDetailDTO = users_uc.get_user_detail(
+def handle_author_detail(request, author_id):
+    principal = get_principal(request)
+    req = GetAuthorDetailsRequest(
         principal=principal,
-        user_id=user_id,
-        with_meta=True,
+        author_id=author_id,
     )
+    author_resp: GetAuthorDetailsResponse = get_author_details_uc.execute(req)
+
+    req = GetAuthorSnippetsRequest(
+        principal=principal,
+        author_id=author_id,
+        limit=10,
+        offset=0,
+    )
+    snippets_resp: GetAuthorSnippetsResponse = get_author_snippets_uc.execute(req)
+
     context = {
-        "viewed_user": resp.user,
-        "snippets": resp.snippets,
+        "author": author_resp.author,
+        "snippets": snippets_resp.snippets,
     }
     return render(request, "users/detail.html", context)
